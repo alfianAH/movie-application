@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dicoding.picodiploma.movieapplication">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -8,8 +11,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MovieApplication">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.MovieApplication"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".ui.detail.DetailMovieActivity"
+            android:label="@string/title_activity_detail_movie"
+            android:theme="@style/Theme.MovieApplication.NoActionBar" />
+        <activity android:name=".ui.home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
