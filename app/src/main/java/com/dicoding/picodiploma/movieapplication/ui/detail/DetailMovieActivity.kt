@@ -1,21 +1,27 @@
 package com.dicoding.picodiploma.movieapplication.ui.detail
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.picodiploma.movieapplication.R
+import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailMovieBinding
+import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
 
 class DetailMovieActivity : AppCompatActivity() {
 
+    companion object{
+        private const val EXTRA_MOVIE = "extra_movie"
+    }
+
+    private lateinit var detailContentBinding: ContentDetailMovieBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_movie)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val activityDetailMovieBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
+        detailContentBinding = activityDetailMovieBinding.detailContent
+
+        setContentView(activityDetailMovieBinding.root)
+        setSupportActionBar(activityDetailMovieBinding.toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
