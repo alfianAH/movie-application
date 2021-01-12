@@ -10,6 +10,7 @@ object DataDummy {
 
         movies.add(
             MovieEntity(
+                    1,
             "Wonder Woman 1984",
                 2020,
             "Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.",
@@ -19,6 +20,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                2,
             "Soul",
             2020,
             "A musician who has lost his passion for music is transported out of his body and must find his way back with the help of an infant soul learning about herself. ",
@@ -28,6 +30,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                3,
             "Tenet",
             2020,
             "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time. ",
@@ -37,15 +40,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
-            "",
-            0,
-            "",
-            "",
-            "",
-            ""
-        ))
-
-        movies.add(MovieEntity(
+                4,
             "Shadow in the Cloud",
             2020,
             "A female WWII pilot traveling with top secret documents on a B-17 Flying Fortress encounters an evil presence on board the flight.",
@@ -55,6 +50,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                5,
             "Wonder Woman",
             2017,
             "When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny. ",
@@ -64,6 +60,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                6,
             "Promising Young Woman",
             2020,
             "A young woman, traumatized by a tragic event in her past, seeks out vengeance against those who cross her path.",
@@ -73,6 +70,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                7,
             "Mulan",
             2020,
             "A young Chinese maiden disguises herself as a male warrior in order to save her father. ",
@@ -82,6 +80,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                8,
             "We Can Be Heroes",
             2020,
             "When alien invaders kidnap Earth's superheroes, their children must team up and learn to work together if they want to save their parents and the world. ",
@@ -91,6 +90,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                9,
             "The Midnight Sky",
             2020,
             "This post-apocalyptic tale follows Augustine, a lonely scientist in the Arctic, as he races to stop Sully and her fellow astronauts from returning home to a mysterious global catastrophe.",
@@ -100,6 +100,7 @@ object DataDummy {
         ))
 
         movies.add(MovieEntity(
+                10,
             "Love Actually",
             2003,
             "Follows the lives of eight very different couples in dealing with their love lives in various loosely interrelated tales all set during a frantic month before Christmas in London, England. ",
@@ -115,6 +116,7 @@ object DataDummy {
         val tvSeries = ArrayList<TVSeriesEntity>()
 
         tvSeries.add(TVSeriesEntity(
+                1,
             "Bridgerton",
             2020,
             "Wealth, lust, and betrayal set against the backdrop of Regency-era England, seen through the eyes of the powerful Bridgerton family.",
@@ -124,6 +126,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                2,
             "The Mandalorian",
             2019,
             "The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.",
@@ -133,6 +136,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                3,
             "Vikings",
             2013,
             "Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean. ",
@@ -142,6 +146,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                4,
             "The Queen's Gambit",
             2020,
             "Orphaned at the tender age of nine, prodigious introvert Beth Harmon discovers and masters the game of chess in 1960s USA. But child stardom comes at a price. ",
@@ -151,6 +156,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                5,
             "Death to 2020",
             2020,
             "Take a look back at the mad glory of the year 2020 in this comedic retrospective.",
@@ -160,6 +166,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                6,
             "The Crown ",
             2016,
             "Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the twentieth century. ",
@@ -169,6 +176,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                7,
             "Game of Thrones  ",
             2011,
             "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia. ",
@@ -178,6 +186,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                8,
             "The Stand  ",
             2020,
             "After the world is in ruins, due to a man-made plague, a battle of Biblical proportions ensues between the survivors. ",
@@ -187,6 +196,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                9,
             "Yellowstone",
             2018,
             "A ranching family in Montana faces off against others encroaching on their land. ",
@@ -196,6 +206,7 @@ object DataDummy {
         ))
 
         tvSeries.add(TVSeriesEntity(
+                10,
             "The Expanse",
             2015,
             "In the 24th century, a disparate band of antiheroes unravel a vast conspiracy that threatens the Solar System's fragile state of cold war.",

@@ -8,7 +8,7 @@ import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieB
 class DetailMovieActivity : AppCompatActivity() {
 
     companion object{
-        private const val EXTRA_MOVIE = "extra_movie"
+        const val EXTRA_MOVIE = "extra_movie"
     }
 
     private lateinit var detailContentBinding: ContentDetailMovieBinding
