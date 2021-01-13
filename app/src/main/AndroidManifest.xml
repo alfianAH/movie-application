@@ -18,10 +18,6 @@
             android:label="@string/title_activity_detail_movie"
             android:theme="@style/Theme.MovieApplication.NoActionBar" />
         <activity android:name=".ui.home.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.HomeActivity" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -45,7 +45,7 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
 
                 1 -> { // TV Series
-                    val tvSeriesId = extras.getInt(EXTRA_MOVIE)
+                    val tvSeriesId = extras.getInt(EXTRA_TV_SERIES)
                     for(tvSeries in DataDummy.generateDummyTVSeries()){
                         if(tvSeries.tvSeriesId == tvSeriesId){
                             populateTVSeries(tvSeries)
@@ -56,7 +56,13 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
     private fun populateMovie(movieEntity: MovieEntity){
+        supportActionBar?.title = movieEntity.title
         detailContentBinding.textTitle.text = movieEntity.title
         detailContentBinding.textReleaseYear.text = movieEntity.releaseYear.toString()
         detailContentBinding.textGenre.text = movieEntity.genre
@@ -71,6 +77,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun populateTVSeries(tvSeriesEntity: TVSeriesEntity){
+        supportActionBar?.title = tvSeriesEntity.title
         detailContentBinding.textTitle.text = tvSeriesEntity.title
         detailContentBinding.textReleaseYear.text = tvSeriesEntity.releaseYear.toString()
         detailContentBinding.textGenre.text = tvSeriesEntity.genre

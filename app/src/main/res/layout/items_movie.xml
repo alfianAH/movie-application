@@ -6,6 +6,9 @@
     android:id="@+id/cv_item_course"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
     android:orientation="vertical"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp"
@@ -15,7 +18,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/img_poster"
@@ -46,28 +50,29 @@
 
         <TextView
             android:id="@+id/text_item_genre"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="start"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_poster"
             app:layout_constraintTop_toBottomOf="@+id/text_item_title"
             tools:text="@string/genre" />
 
         <TextView
             android:id="@+id/text_summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="start"
             android:maxLines="2"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_poster"
             app:layout_constraintTop_toBottomOf="@+id/text_item_genre"
             tools:text="@string/summary" />
