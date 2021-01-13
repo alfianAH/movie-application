@@ -3,12 +3,23 @@ package com.dicoding.picodiploma.movieapplication.ui.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dicoding.picodiploma.movieapplication.R
+import com.dicoding.picodiploma.movieapplication.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var activityHomeBinding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        activityHomeBinding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(activityHomeBinding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        activityHomeBinding.viewPager.adapter = sectionsPagerAdapter
+        activityHomeBinding.tabs.setupWithViewPager(
+            activityHomeBinding.viewPager
+        )
+
+        supportActionBar?.elevation = 0f
     }
 }
