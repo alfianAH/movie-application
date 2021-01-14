@@ -55,6 +55,9 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Set UI for movie entity
+     */
     private fun populateMovie(movieEntity: MovieEntity){
         supportActionBar?.title = movieEntity.title
         detailContentBinding.textTitle.text = movieEntity.title
@@ -70,6 +73,9 @@ class DetailActivity : AppCompatActivity() {
             .into(detailContentBinding.imagePoster)
     }
 
+    /**
+     * Set UI for tv series entity
+     */
     private fun populateTVSeries(tvSeriesEntity: TVSeriesEntity){
         supportActionBar?.title = tvSeriesEntity.title
         detailContentBinding.textTitle.text = tvSeriesEntity.title
