@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.MovieEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
-import com.dicoding.picodiploma.movieapplication.ui.detail.DetailMovieActivity
+import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -29,9 +29,9 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 textSummary.text = movie.summary
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie.movieId)
-                    intent.putExtra(DetailMovieActivity.EXTRA_ID, 0)
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.movieId)
+                    intent.putExtra(DetailActivity.EXTRA_ID, 0)
                     itemView.context.startActivity(intent)
                 }
 

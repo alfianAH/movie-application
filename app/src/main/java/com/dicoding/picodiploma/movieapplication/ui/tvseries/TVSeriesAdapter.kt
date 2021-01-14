@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
-import com.dicoding.picodiploma.movieapplication.ui.detail.DetailMovieActivity
+import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 
 class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {
 
@@ -29,9 +29,9 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
                 textSummary.text = tvSeries.summary
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
-                    intent.putExtra(DetailMovieActivity.EXTRA_ID, 1)
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
+                    intent.putExtra(DetailActivity.EXTRA_ID, 1)
                     itemView.context.startActivity(intent)
                 }
 

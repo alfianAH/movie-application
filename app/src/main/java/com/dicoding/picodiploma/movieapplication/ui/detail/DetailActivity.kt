@@ -2,16 +2,16 @@ package com.dicoding.picodiploma.movieapplication.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.MovieEntity
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
-import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailMovieBinding
+import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
-import com.dicoding.picodiploma.movieapplication.utils.DataDummy
 
-class DetailMovieActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
 
     companion object{
         const val EXTRA_ID = "extra_id"
@@ -24,8 +24,10 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityDetailMovieBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
+        val activityDetailMovieBinding = ActivityDetailBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailMovieBinding.detailContent
+
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
 
         setContentView(activityDetailMovieBinding.root)
         setSupportActionBar(activityDetailMovieBinding.toolbar)
@@ -36,21 +38,13 @@ class DetailMovieActivity : AppCompatActivity() {
         if(extras != null){
             when(extras.getInt(EXTRA_ID)){
                 0 -> { // Movie
-                    val movieId = extras.getInt(EXTRA_MOVIE)
-                    for(movie in DataDummy.generateDummyMovies()){
-                        if(movie.movieId == movieId){
-                            populateMovie(movie)
-                        }
-                    }
+                    viewModel.setSelectedMovie(extras.getInt(EXTRA_MOVIE))
+                    populateMovie(viewModel.getMovie())
                 }
 
                 1 -> { // TV Series
-                    val tvSeriesId = extras.getInt(EXTRA_TV_SERIES)
-                    for(tvSeries in DataDummy.generateDummyTVSeries()){
-                        if(tvSeries.tvSeriesId == tvSeriesId){
-                            populateTVSeries(tvSeries)
-                        }
-                    }
+                    viewModel.setSelectedTVSeries(extras.getInt(EXTRA_TV_SERIES))
+                    populateTVSeries(viewModel.getTVSeries())
                 }
             }
         }

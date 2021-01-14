@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
-import com.dicoding.picodiploma.movieapplication.utils.DataDummy
 
 class HomeFragment : Fragment() {
 
@@ -40,9 +40,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
+            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
+
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
                 1 -> { // Show movie list
-                    val movies = DataDummy.generateDummyMovies()
+                    val movies = viewModel.getMovies()
                     val movieAdapter = MovieAdapter()
                     movieAdapter.setMovies(movies)
 
@@ -54,7 +56,7 @@ class HomeFragment : Fragment() {
                 }
 
                 2 -> { // Show tv series list
-                    val tvSeries = DataDummy.generateDummyTVSeries()
+                    val tvSeries = viewModel.getTVSeries()
                     val tvSeriesAdapter = TVSeriesAdapter()
                     tvSeriesAdapter.setTVSeries(tvSeries)
 
