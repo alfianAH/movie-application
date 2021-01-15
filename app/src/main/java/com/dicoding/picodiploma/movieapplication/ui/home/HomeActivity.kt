@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.movieapplication.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
