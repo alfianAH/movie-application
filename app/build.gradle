@@ -52,6 +52,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // testing
+    testImplementation "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
+    testImplementation "org.jetbrains.spek:spek-api:$spekApiVersion"
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2Version"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek2Version"
+    testImplementation "org.jetbrains.spek:spek-junit-platform-engine:$spekApiVersion"
+    testImplementation "org.junit.platform:junit-platform-runner:$junitPlatformVersion"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
