@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.picodiploma.movieapplication.data.MovieEntity
+import com.dicoding.picodiploma.movieapplication.data.MovieResultsItem
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
@@ -48,49 +48,72 @@ class HomeFragment : Fragment() {
 
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
                 1 -> { // Show movie list
-                    val movies = viewModel.getMovies()
-                    val movieAdapter = MovieAdapter()
-                    movieAdapter.setMovies(movies)
-
-                    with(fragmentHomeBinding.rvList){
-                        layoutManager = LinearLayoutManager(context)
-                        setHasFixedSize(true)
-                        adapter = movieAdapter
-                    }
-
-                    // On click listener
-                    movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
-                        override fun onItemClicked(movie: MovieEntity) {
-                            val intent = Intent(activity, DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.movieId)
-                            intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
-                            startActivity(intent)
-                        }
-                    })
+                    showMovieList(viewModel)
                 }
 
                 2 -> { // Show tv series list
-                    val tvSeries = viewModel.getTVSeries()
-                    val tvSeriesAdapter = TVSeriesAdapter()
-                    tvSeriesAdapter.setTVSeries(tvSeries)
-
-                    with(fragmentHomeBinding.rvList){
-                        layoutManager = LinearLayoutManager(context)
-                        setHasFixedSize(true)
-                        adapter = tvSeriesAdapter
-                    }
-
-                    tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
-                        override fun onItemClicked(tvSeries: TVSeriesEntity) {
-                            val intent = Intent(activity, DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
-                            intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
-                            startActivity(intent)
-                        }
-
-                    })
+                    showTVSeriesList(viewModel)
                 }
             }
         }
+    }
+
+    /**
+     * Show movie list in fragment
+     */
+    private fun showMovieList(viewModel: HomeViewModel){
+        viewModel.findMovies() // Find movies
+
+        // Observe movies
+        viewModel.movie.observe(this, { movies ->
+            val movieAdapter = MovieAdapter()
+            movieAdapter.setMovies(movies)
+
+            with(fragmentHomeBinding.rvList){
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = movieAdapter
+            }
+
+            // On click listener
+            movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
+                override fun onItemClicked(movie: MovieResultsItem) {
+                    val intent = Intent(activity, DetailActivity::class.java)
+//                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.movieId)
+                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
+                    startActivity(intent)
+                }
+            })
+        })
+
+        // Observe is loading
+        viewModel.isLoading.observe(this, {
+            fragmentHomeBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
+        })
+    }
+
+    /**
+     * Show movie list in fragment
+     */
+    private fun showTVSeriesList(viewModel: HomeViewModel){
+        val tvSeries = viewModel.getTVSeries()
+        val tvSeriesAdapter = TVSeriesAdapter()
+        tvSeriesAdapter.setTVSeries(tvSeries)
+
+        with(fragmentHomeBinding.rvList){
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = tvSeriesAdapter
+        }
+
+        tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
+            override fun onItemClicked(tvSeries: TVSeriesEntity) {
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
+                intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
+                startActivity(intent)
+            }
+
+        })
     }
 }
