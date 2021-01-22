@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio
 
+# (optional) BEWARE OF API_KEY
+gradle.properties
+
 ### Android ###
 # Built application files
 *.apk
