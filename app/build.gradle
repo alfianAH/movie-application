@@ -37,23 +37,33 @@ android {
 }
 
 dependencies {
-    // kotlin
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$coreVersion"
 
-    // ui
+    // View
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
-    // testing
+    // API
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // Testing
+    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
     testImplementation "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
     testImplementation "org.jetbrains.spek:spek-api:$spekApiVersion"
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2Version"
     testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek2Version"
     testImplementation "org.jetbrains.spek:spek-junit-platform-engine:$spekApiVersion"
+
     testImplementation "org.junit.platform:junit-platform-runner:$junitPlatformVersion"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
