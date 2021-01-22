@@ -5,23 +5,21 @@ import com.dicoding.picodiploma.movieapplication.data.MovieResponse
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET("/movie/upcoming?api_key={apiKey}&language=en-US&page=1")
+    @GET("movie/upcoming")
     fun getMovie(
-        @Path("apiKey") apiKey: String
+        @Query("api_key") apiKey: String
     ): Call<MovieResponse>
 
-    @GET("/tv/top_rated?api_key={apiKey}&language=en-US&page=1")
+    @GET("tv/top_rated")
     fun getTVSeries(
-        @Path("apiKey") apiKey: String
+        @Query("api_key") apiKey: String
     ): Call<TVSeriesResponse>
 
-    @GET("/genre/movie/list?api_key={apiKey}&language=en-US")
+    @GET("genre/movie/list")
     fun getGenres(
-        @Path("apiKey") apiKey: String
+        @Query("api_key") apiKey: String
     ): Call<GenresResponse>
-
-    // https://image.tmdb.org/t/p/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png
 }
