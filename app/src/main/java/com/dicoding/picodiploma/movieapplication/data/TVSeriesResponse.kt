@@ -3,18 +3,8 @@ package com.dicoding.picodiploma.movieapplication.data
 import com.google.gson.annotations.SerializedName
 
 data class TVSeriesResponse(
-
-	@field:SerializedName("page")
-	val page: Int,
-
-	@field:SerializedName("total_pages")
-	val totalPages: Int,
-
 	@field:SerializedName("results")
-	val results: List<TVSeriesResultsItem>,
-
-	@field:SerializedName("total_results")
-	val totalResults: Int
+	val results: List<TVSeriesResultsItem>
 )
 
 data class TVSeriesResultsItem(
