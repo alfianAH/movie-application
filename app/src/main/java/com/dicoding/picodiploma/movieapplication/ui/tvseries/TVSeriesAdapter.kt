@@ -1,6 +1,5 @@
 package com.dicoding.picodiploma.movieapplication.ui.tvseries
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +8,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
-import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 
 class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {
 
@@ -26,19 +24,15 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
         listTVSeries.addAll(tvSeries)
     }
 
-    class TVSeriesViewHolder(private val binding: ItemsMovieBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class TVSeriesViewHolder(private val binding: ItemsMovieBinding):
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(tvSeries: TVSeriesEntity){
             with(binding){
                 textItemTitle.text = tvSeries.title
                 textItemGenre.text = tvSeries.genre
                 textSummary.text = tvSeries.summary
 
-                itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
-                    intent.putExtra(DetailActivity.EXTRA_ID, 1)
-                    itemView.context.startActivity(intent)
-                }
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(tvSeries) }
 
                 Glide.with(itemView.context)
                         .load(tvSeries.imagePath)
