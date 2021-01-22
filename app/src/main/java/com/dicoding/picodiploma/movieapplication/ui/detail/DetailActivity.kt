@@ -17,6 +17,9 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_MOVIE = "extra_movie"
         const val EXTRA_TV_SERIES = "extra_tv_series"
+
+        private const val MOVIE_ID = 0
+        private const val TV_SERIES_ID = 1
     }
 
     private lateinit var detailContentBinding: ContentDetailMovieBinding
@@ -37,12 +40,12 @@ class DetailActivity : AppCompatActivity() {
         val extras = intent.extras
         if(extras != null){
             when(extras.getInt(EXTRA_ID)){
-                0 -> { // Movie
+                MOVIE_ID -> { // Movie
                     viewModel.setSelectedMovie(extras.getInt(EXTRA_MOVIE))
                     populateMovie(viewModel.getMovie())
                 }
 
-                1 -> { // TV Series
+                TV_SERIES_ID -> { // TV Series
                     viewModel.setSelectedTVSeries(extras.getInt(EXTRA_TV_SERIES))
                     populateTVSeries(viewModel.getTVSeries())
                 }

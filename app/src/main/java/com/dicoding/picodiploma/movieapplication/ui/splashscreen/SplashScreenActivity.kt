@@ -8,6 +8,11 @@ import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.ui.home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
+
+    companion object{
+        private const val DELAY_MILLIS: Long = 3000
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -17,6 +22,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, DELAY_MILLIS)
     }
 }
