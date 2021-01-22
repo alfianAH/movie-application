@@ -19,9 +19,15 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField 'String', "TMBDApiKey", TMDB_Api_Key
+            resValue 'string', "tmdb_api_key", TMDB_Api_Key
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "TMBDApiKey", TMDB_Api_Key
+            resValue 'string', "tmdb_api_key", TMDB_Api_Key
         }
     }
     compileOptions {
