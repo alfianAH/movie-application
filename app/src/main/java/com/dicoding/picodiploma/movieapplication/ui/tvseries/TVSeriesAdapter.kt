@@ -14,6 +14,11 @@ import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {
 
     private var listTVSeries = ArrayList<TVSeriesEntity>()
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     fun setTVSeries(tvSeries: List<TVSeriesEntity>?){
         if(tvSeries == null) return
@@ -55,4 +60,8 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
     }
 
     override fun getItemCount(): Int = listTVSeries.size
+
+    interface OnItemClickCallback{
+        fun onItemClicked(tvSeries: TVSeriesEntity)
+    }
 }

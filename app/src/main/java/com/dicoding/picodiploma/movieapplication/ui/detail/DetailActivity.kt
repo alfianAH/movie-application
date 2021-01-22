@@ -17,9 +17,8 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_MOVIE = "extra_movie"
         const val EXTRA_TV_SERIES = "extra_tv_series"
-
-        private const val MOVIE_ID = 0
-        private const val TV_SERIES_ID = 1
+        const val MOVIE_ID = 0
+        const val TV_SERIES_ID = 1
     }
 
     private lateinit var detailContentBinding: ContentDetailMovieBinding

@@ -14,6 +14,11 @@ import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private var listMovies = ArrayList<MovieEntity>()
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     fun setMovies(movies: List<MovieEntity>?){
         if(movies == null) return
@@ -55,4 +60,8 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int = listMovies.size
+
+    interface OnItemClickCallback{
+        fun onItemClicked(movie: MovieEntity)
+    }
 }
