@@ -29,11 +29,11 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
     }
 
     inner class TVSeriesViewHolder(private val binding: ItemsMovieBinding):
-        RecyclerView.ViewHolder(binding.root) {
+            RecyclerView.ViewHolder(binding.root) {
+
         fun bind(tvSeries: TVSeriesResultsItem){
             with(binding){
                 textItemTitle.text = tvSeries.name
-//                textItemGenre.text = tvSeries.genre
                 textSummary.text = tvSeries.overview
 
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(tvSeries) }

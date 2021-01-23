@@ -20,9 +20,6 @@ class HomeViewModel: ViewModel() {
     private val _tvSeries = MutableLiveData<List<TVSeriesResultsItem>>()
     val tvSeries: LiveData<List<TVSeriesResultsItem>> = _tvSeries
 
-    private val _genres = MutableLiveData<List<GenresItem>>()
-    val genres: LiveData<List<GenresItem>> = _genres
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -43,7 +40,6 @@ class HomeViewModel: ViewModel() {
                     _movie.value = response.body()?.results
 
                     // Content value
-                    response.body()?.results
                 } else{
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -78,34 +74,6 @@ class HomeViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<TVSeriesResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
-
-    fun findGenres(){
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getGenres(API_KEY)
-
-        client.enqueue(object : Callback<GenresResponse> {
-            override fun onResponse(
-                call: Call<GenresResponse>,
-                response: Response<GenresResponse>
-            ) {
-                _isLoading.value = false
-
-                if(response.isSuccessful){
-                    _genres.value = response.body()?.genres
-
-                    // Content value
-
-                } else{
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
