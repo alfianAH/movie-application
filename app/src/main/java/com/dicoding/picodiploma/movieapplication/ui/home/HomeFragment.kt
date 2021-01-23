@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.movieapplication.data.MovieResultsItem
-import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
+import com.dicoding.picodiploma.movieapplication.data.TVSeriesResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
             movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
                 override fun onItemClicked(movie: MovieResultsItem) {
                     val intent = Intent(activity, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.movieId)
+                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.id)
                     intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
                     startActivity(intent)
                 }
@@ -96,24 +96,26 @@ class HomeFragment : Fragment() {
      * Show movie list in fragment
      */
     private fun showTVSeriesList(viewModel: HomeViewModel){
-        val tvSeries = viewModel.getTVSeries()
-        val tvSeriesAdapter = TVSeriesAdapter()
-        tvSeriesAdapter.setTVSeries(tvSeries)
+        viewModel.findTVSeries()
 
-        with(fragmentHomeBinding.rvList){
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = tvSeriesAdapter
-        }
+        viewModel.tvSeries.observe(this, {tvSeries ->
+            val tvSeriesAdapter = TVSeriesAdapter()
+            tvSeriesAdapter.setTVSeries(tvSeries)
 
-        tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
-            override fun onItemClicked(tvSeries: TVSeriesEntity) {
-                val intent = Intent(activity, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.tvSeriesId)
-                intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
-                startActivity(intent)
+            with(fragmentHomeBinding.rvList){
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = tvSeriesAdapter
             }
 
+            tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
+                override fun onItemClicked(tvSeries: TVSeriesResultsItem) {
+                    val intent = Intent(activity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.id)
+                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
+                    startActivity(intent)
+                }
+            })
         })
     }
 }
