@@ -117,5 +117,10 @@ class HomeFragment : Fragment() {
                 }
             })
         })
+
+        // Observe is loading
+        viewModel.isLoading.observe(this, {
+            fragmentHomeBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
+        })
     }
 }

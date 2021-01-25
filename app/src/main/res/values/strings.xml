@@ -5,6 +5,7 @@
     <string name="title">Title</string>
     <string name="release_year">Release Year</string>
     <string name="genre">Genre: </string>
+    <string name="score">Score: %.1f / 10</string>
     <string name="directors">Director(s): </string>
     <string name="summary">Summary: </string>
     <string name="example">Example</string>

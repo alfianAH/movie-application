@@ -34,6 +34,7 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
         fun bind(tvSeries: TVSeriesResultsItem){
             with(binding){
                 textItemTitle.text = tvSeries.name
+                textScore.text = itemView.context.getString(R.string.score, tvSeries.voteAverage)
                 textSummary.text = tvSeries.overview
 
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(tvSeries) }

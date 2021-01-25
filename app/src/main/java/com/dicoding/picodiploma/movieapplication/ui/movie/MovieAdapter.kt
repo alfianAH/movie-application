@@ -33,7 +33,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         fun bind(movie: MovieResultsItem){
             with(binding){
                 textItemTitle.text = movie.title
-//                textItemGenre.text = movie.genre
+                textScore.text = itemView.context.getString(R.string.score, movie.voteAverage)
                 textSummary.text = movie.overview
 
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(movie) }
