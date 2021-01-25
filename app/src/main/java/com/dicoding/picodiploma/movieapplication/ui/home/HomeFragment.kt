@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,15 +45,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
 
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
                 1 -> { // Show movie list
-                    showMovieList(viewModel)
+                    showMovieList()
                 }
 
                 2 -> { // Show tv series list
-                    showTVSeriesList(viewModel)
+                    showTVSeriesList()
                 }
             }
         }
@@ -61,7 +62,7 @@ class HomeFragment : Fragment() {
     /**
      * Show movie list in fragment
      */
-    private fun showMovieList(viewModel: HomeViewModel){
+    private fun showMovieList(){
         viewModel.findMovies() // Find movies
 
         // Observe movies
@@ -86,16 +87,13 @@ class HomeFragment : Fragment() {
             })
         })
 
-        // Observe is loading
-        viewModel.isLoading.observe(this, {
-            fragmentHomeBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
-        })
+        setLoading()
     }
 
     /**
      * Show movie list in fragment
      */
-    private fun showTVSeriesList(viewModel: HomeViewModel){
+    private fun showTVSeriesList(){
         viewModel.findTVSeries()
 
         viewModel.tvSeries.observe(this, {tvSeries ->
@@ -118,6 +116,13 @@ class HomeFragment : Fragment() {
             })
         })
 
+        setLoading()
+    }
+
+    /**
+     * Set loading
+     */
+    private fun setLoading(){
         // Observe is loading
         viewModel.isLoading.observe(this, {
             fragmentHomeBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE

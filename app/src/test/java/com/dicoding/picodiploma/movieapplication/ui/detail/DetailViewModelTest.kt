@@ -18,8 +18,8 @@ class DetailViewModelTest {
     fun setUp() {
         viewModel = DetailViewModel()
         // Set ids
-        viewModel.setSelectedMovie(movieId)
-        viewModel.setSelectedTVSeries(tvSeriesId)
+        viewModel.setMovieId(movieId)
+        viewModel.setTVSeriesId(tvSeriesId)
     }
 
     @Test

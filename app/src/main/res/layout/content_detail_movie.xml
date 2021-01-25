@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/image_poster"
-        android:layout_width="182dp"
-        android:layout_height="268dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         android:layout_marginTop="16dp"
-        android:src="@color/teal_200"
+        android:src="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
@@ -22,28 +22,57 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_poster"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_poster"
         tools:text="@string/title" />
 
     <TextView
-        android:id="@+id/text_release_year"
-        android:layout_width="wrap_content"
+        android:id="@+id/text_status"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:gravity="start"
-        android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/image_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title"
-        tools:text="@string/release_year" />
+        tools:text="@string/status" />
+
+    <TextView
+        android:id="@+id/text_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_status"
+        tools:text="@string/score" />
+
+    <TextView
+        android:id="@+id/text_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_score"
+        tools:text="@string/release_date" />
 
     <TextView
         android:id="@+id/genre"
@@ -51,67 +80,43 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="start"
-        android:textSize="16sp"
         android:text="@string/genre"
-        app:layout_constraintStart_toEndOf="@+id/image_poster"
-        app:layout_constraintTop_toBottomOf="@+id/text_release_year" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/summary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_release_date" />
 
-    <TextView
-        android:id="@+id/text_genre"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_genre_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:gravity="start"
-        android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/genre"
-        app:layout_constraintTop_toBottomOf="@+id/text_release_year"
-        tools:text="@string/genre" />
-
-    <TextView
-        android:id="@+id/directors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:gravity="start"
-        android:textSize="16sp"
-        android:text="@string/directors"
-        app:layout_constraintStart_toEndOf="@+id/image_poster"
-        app:layout_constraintTop_toBottomOf="@+id/text_genre" />
-
-    <TextView
-        android:id="@+id/text_directors"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="start"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/directors"
-        app:layout_constraintTop_toBottomOf="@+id/text_genre"
-        tools:text="@string/directors" />
+        app:layout_constraintTop_toBottomOf="@+id/text_release_date"
+        tools:listitem="@layout/items_genre"
+        tools:itemCount="1"/>
 
     <TextView
         android:id="@+id/summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="@string/summary"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_poster" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_genre_list" />
 
     <TextView
         android:id="@+id/text_summary"
@@ -122,8 +127,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="start"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -131,5 +135,17 @@
         app:layout_constraintTop_toBottomOf="@+id/summary"
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/summary" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.dicoding.picodiploma.movieapplication.api
 
+import com.dicoding.picodiploma.movieapplication.data.DetailMovieResponse
+import com.dicoding.picodiploma.movieapplication.data.DetailTVSeriesResponse
 import com.dicoding.picodiploma.movieapplication.data.MovieResponse
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesResponse
 import retrofit2.Call
@@ -22,11 +24,11 @@ interface ApiService {
     fun getDetailMovie(
             @Path("movie_id") movieId: Int,
             @Query("api_key") apiKey: String
-    )
+    ): Call<DetailMovieResponse>
 
     @GET("tv/{tv_id}")
     fun getDetailTVSeries(
             @Path("tv_id") tvSeriesId: Int,
             @Query("api_key") apiKey: String
-    )
+    ): Call<DetailTVSeriesResponse>
 }

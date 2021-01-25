@@ -56,7 +56,7 @@ class HomeActivityTest {
         // Check matches in genre
         onView(withId(R.id.text_genre)).check(matches(withText(dummyMovie[0].genre)))
         // Check matches in releaseYear
-        onView(withId(R.id.text_release_year)).check(matches(withText(dummyMovie[0].releaseYear.toString())))
+        onView(withId(R.id.text_release_date)).check(matches(withText(dummyMovie[0].releaseYear.toString())))
         // Check matches in summary
         onView(withId(R.id.text_summary)).check(matches(withText(dummyMovie[0].summary)))
         // Check image is displayed
@@ -77,7 +77,7 @@ class HomeActivityTest {
         // Check matches in genre
         onView(withId(R.id.text_genre)).check(matches(withText(dummyTVSeries[0].genre)))
         // Check matches in releaseYear
-        onView(withId(R.id.text_release_year)).check(matches(withText(dummyTVSeries[0].releaseYear.toString())))
+        onView(withId(R.id.text_release_date)).check(matches(withText(dummyTVSeries[0].releaseYear.toString())))
         // Check matches in summary
         onView(withId(R.id.text_summary)).check(matches(withText(dummyTVSeries[0].summary)))
         // Check image is displayed
