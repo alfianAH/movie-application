@@ -23,13 +23,13 @@ data class DetailMovieResponse(
 	val revenue: Int,
 
 	@field:SerializedName("genres")
-	val genres: List<MovieGenresItem>,
+	val genres: List<GenresItem>,
 
 	@field:SerializedName("popularity")
 	val popularity: Double,
 
 	@field:SerializedName("production_countries")
-	val productionCountries: List<MovieProductionCountriesItem>,
+	val productionCountries: List<ProductionCountriesItem>,
 
 	@field:SerializedName("id")
 	val id: Int,
@@ -53,10 +53,10 @@ data class DetailMovieResponse(
 	val posterPath: String,
 
 	@field:SerializedName("spoken_languages")
-	val spokenLanguages: List<MovieSpokenLanguagesItem>,
+	val spokenLanguages: List<SpokenLanguagesItem>,
 
 	@field:SerializedName("production_companies")
-	val productionCompanies: List<MovieProductionCompaniesItem>,
+	val productionCompanies: List<ProductionCompaniesItem>,
 
 	@field:SerializedName("release_date")
 	val releaseDate: String,
@@ -80,18 +80,6 @@ data class DetailMovieResponse(
 	val status: String
 )
 
-data class MovieSpokenLanguagesItem(
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("iso_639_1")
-	val iso6391: String,
-
-	@field:SerializedName("english_name")
-	val englishName: String
-)
-
 data class BelongsToCollection(
 
 	@field:SerializedName("backdrop_path")
@@ -105,37 +93,4 @@ data class BelongsToCollection(
 
 	@field:SerializedName("poster_path")
 	val posterPath: String
-)
-
-data class MovieGenresItem(
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("id")
-	val id: Int
-)
-
-data class MovieProductionCountriesItem(
-
-	@field:SerializedName("iso_3166_1")
-	val iso31661: String,
-
-	@field:SerializedName("name")
-	val name: String
-)
-
-data class MovieProductionCompaniesItem(
-
-	@field:SerializedName("logo_path")
-	val logoPath: String,
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("id")
-	val id: Int,
-
-	@field:SerializedName("origin_country")
-	val originCountry: String
 )

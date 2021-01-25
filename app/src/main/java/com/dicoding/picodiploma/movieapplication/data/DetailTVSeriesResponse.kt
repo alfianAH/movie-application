@@ -5,245 +5,200 @@ import com.google.gson.annotations.SerializedName
 data class DetailTVSeriesResponse(
 
 	@field:SerializedName("original_language")
-	val originalLanguage: String? = null,
+	val originalLanguage: String,
 
 	@field:SerializedName("number_of_episodes")
-	val numberOfEpisodes: Int? = null,
+	val numberOfEpisodes: Int,
 
 	@field:SerializedName("networks")
-	val networks: List<NetworksItem?>? = null,
+	val networks: List<NetworksItem>,
 
 	@field:SerializedName("type")
-	val type: String? = null,
+	val type: String,
 
 	@field:SerializedName("backdrop_path")
-	val backdropPath: String? = null,
+	val backdropPath: String,
 
 	@field:SerializedName("genres")
-	val genres: List<TVSeriesGenresItem?>? = null,
+	val genres: List<GenresItem>,
 
 	@field:SerializedName("popularity")
-	val popularity: Double? = null,
+	val popularity: Double,
 
 	@field:SerializedName("production_countries")
-	val productionCountries: List<TVSeriesProductionCountriesItem?>? = null,
+	val productionCountries: List<ProductionCountriesItem>,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("number_of_seasons")
-	val numberOfSeasons: Int? = null,
+	val numberOfSeasons: Int,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null,
+	val voteCount: Int,
 
 	@field:SerializedName("first_air_date")
-	val firstAirDate: String? = null,
+	val firstAirDate: String,
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("seasons")
-	val seasons: List<SeasonsItem?>? = null,
+	val seasons: List<SeasonsItem>,
 
 	@field:SerializedName("languages")
-	val languages: List<String?>? = null,
+	val languages: List<String>,
 
 	@field:SerializedName("created_by")
-	val createdBy: List<Any?>? = null,
+	val createdBy: List<Any>,
 
 	@field:SerializedName("last_episode_to_air")
-	val lastEpisodeToAir: LastEpisodeToAir? = null,
+	val lastEpisodeToAir: LastEpisodeToAir,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String? = null,
+	val posterPath: String,
 
 	@field:SerializedName("origin_country")
-	val originCountry: List<String?>? = null,
+	val originCountry: List<String>,
 
 	@field:SerializedName("spoken_languages")
-	val spokenLanguages: List<TVSeriesSpokenLanguagesItem?>? = null,
+	val spokenLanguages: List<SpokenLanguagesItem>,
 
 	@field:SerializedName("production_companies")
-	val productionCompanies: List<TVSeriesProductionCompaniesItem?>? = null,
+	val productionCompanies: List<ProductionCompaniesItem>,
 
 	@field:SerializedName("original_name")
-	val originalName: String? = null,
+	val originalName: String,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Double? = null,
+	val voteAverage: Double,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("tagline")
-	val tagline: String? = null,
+	val tagline: String,
 
 	@field:SerializedName("episode_run_time")
-	val episodeRunTime: List<Int?>? = null,
+	val episodeRunTime: List<Int>,
 
 	@field:SerializedName("next_episode_to_air")
-	val nextEpisodeToAir: NextEpisodeToAir? = null,
+	val nextEpisodeToAir: NextEpisodeToAir,
 
 	@field:SerializedName("in_production")
-	val inProduction: Boolean? = null,
+	val inProduction: Boolean,
 
 	@field:SerializedName("last_air_date")
-	val lastAirDate: String? = null,
+	val lastAirDate: String,
 
 	@field:SerializedName("homepage")
-	val homepage: String? = null,
+	val homepage: String,
 
 	@field:SerializedName("status")
-	val status: String? = null
-)
-
-data class TVSeriesSpokenLanguagesItem(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("iso_639_1")
-	val iso6391: String? = null,
-
-	@field:SerializedName("english_name")
-	val englishName: String? = null
-)
-
-data class TVSeriesGenresItem(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null
-)
-
-data class TVSeriesProductionCountriesItem(
-
-	@field:SerializedName("iso_3166_1")
-	val iso31661: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null
+	val status: String
 )
 
 data class SeasonsItem(
 
 	@field:SerializedName("air_date")
-	val airDate: String? = null,
+	val airDate: String,
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("episode_count")
-	val episodeCount: Int? = null,
+	val episodeCount: Int,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("season_number")
-	val seasonNumber: Int? = null,
+	val seasonNumber: Int,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String? = null
+	val posterPath: String
 )
 
 data class NetworksItem(
 
 	@field:SerializedName("logo_path")
-	val logoPath: String? = null,
+	val logoPath: String,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("origin_country")
-	val originCountry: String? = null
+	val originCountry: String
 )
 
 data class NextEpisodeToAir(
 
 	@field:SerializedName("production_code")
-	val productionCode: String? = null,
+	val productionCode: String,
 
 	@field:SerializedName("air_date")
-	val airDate: String? = null,
+	val airDate: String,
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("episode_number")
-	val episodeNumber: Int? = null,
+	val episodeNumber: Int,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Int? = null,
+	val voteAverage: Int,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("season_number")
-	val seasonNumber: Int? = null,
+	val seasonNumber: Int,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("still_path")
-	val stillPath: Any? = null,
+	val stillPath: Any,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null
+	val voteCount: Int
 )
 
 data class LastEpisodeToAir(
 
 	@field:SerializedName("production_code")
-	val productionCode: String? = null,
+	val productionCode: String,
 
 	@field:SerializedName("air_date")
-	val airDate: String? = null,
+	val airDate: String,
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("episode_number")
-	val episodeNumber: Int? = null,
+	val episodeNumber: Int,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Int? = null,
+	val voteAverage: Int,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("season_number")
-	val seasonNumber: Int? = null,
+	val seasonNumber: Int,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("still_path")
-	val stillPath: String? = null,
+	val stillPath: String,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null
-)
-
-data class TVSeriesProductionCompaniesItem(
-
-	@field:SerializedName("logo_path")
-	val logoPath: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("origin_country")
-	val originCountry: String? = null
+	val voteCount: Int
 )
