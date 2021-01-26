@@ -12,6 +12,7 @@ import com.dicoding.picodiploma.movieapplication.data.GenresItem
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
 import com.dicoding.picodiploma.movieapplication.ui.genre.GenreAdapter
+import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
 
 class DetailActivity : AppCompatActivity() {
 
@@ -76,7 +77,8 @@ class DetailActivity : AppCompatActivity() {
             detailContentBinding.textTitle.text = movie.title
             detailContentBinding.textStatus.text = getString(R.string.status, movie.status)
             detailContentBinding.textScore.text = getString(R.string.score, movie.voteAverage)
-            detailContentBinding.textReleaseDate.text = getString(R.string.release_date, movie.releaseDate)
+            detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
+                    ConvertDate.convertStringToDate(movie.releaseDate))
             detailContentBinding.textSummary.text = movie.overview
 
             // Set genre
@@ -109,7 +111,8 @@ class DetailActivity : AppCompatActivity() {
             detailContentBinding.textTitle.text = tvSeries.name
             detailContentBinding.textStatus.text = getString(R.string.status, tvSeries.status)
             detailContentBinding.textScore.text = getString(R.string.score, tvSeries.voteAverage)
-            detailContentBinding.textReleaseDate.text = getString(R.string.release_date, tvSeries.firstAirDate)
+            detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
+                    ConvertDate.convertStringToDate(tvSeries.firstAirDate))
             detailContentBinding.textSummary.text = tvSeries.overview
 
             // Set genre
