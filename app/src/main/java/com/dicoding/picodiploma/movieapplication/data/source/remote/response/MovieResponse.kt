@@ -1,16 +1,16 @@
-package com.dicoding.picodiploma.movieapplication.data
+package com.dicoding.picodiploma.movieapplication.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class TVSeriesResponse(
+data class MovieResponse(
 	@field:SerializedName("results")
-	val results: List<TVSeriesResultsItem>
+	val results: List<MovieResultsItem>
 )
 
-data class TVSeriesResultsItem(
-
-	@field:SerializedName("first_air_date")
-	val firstAirDate: String,
+@Parcelize
+data class MovieResultsItem(
 
 	@field:SerializedName("overview")
 	val overview: String,
@@ -18,20 +18,26 @@ data class TVSeriesResultsItem(
 	@field:SerializedName("original_language")
 	val originalLanguage: String,
 
+	@field:SerializedName("original_title")
+	val originalTitle: String,
+
+	@field:SerializedName("video")
+	val video: Boolean,
+
+	@field:SerializedName("title")
+	val title: String,
+
 	@field:SerializedName("genre_ids")
 	val genreIds: List<Int>,
 
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 
-	@field:SerializedName("origin_country")
-	val originCountry: List<String>,
-
 	@field:SerializedName("backdrop_path")
-	val backdropPath: Any,
+	val backdropPath: String,
 
-	@field:SerializedName("original_name")
-	val originalName: String,
+	@field:SerializedName("release_date")
+	val releaseDate: String,
 
 	@field:SerializedName("popularity")
 	val popularity: Double,
@@ -39,12 +45,12 @@ data class TVSeriesResultsItem(
 	@field:SerializedName("vote_average")
 	val voteAverage: Double,
 
-	@field:SerializedName("name")
-	val name: String,
-
 	@field:SerializedName("id")
 	val id: Int,
 
+	@field:SerializedName("adult")
+	val adult: Boolean,
+
 	@field:SerializedName("vote_count")
 	val voteCount: Int
-)
+): Parcelable

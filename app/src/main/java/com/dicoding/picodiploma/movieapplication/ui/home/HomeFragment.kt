@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.picodiploma.movieapplication.data.MovieResultsItem
-import com.dicoding.picodiploma.movieapplication.data.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
+import com.dicoding.picodiploma.movieapplication.ui.home.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
 
@@ -45,7 +46,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
-            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
+            val factory = ViewModelFactory.getInstance()
+            viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
                 1 -> { // Show movie list
@@ -63,10 +65,11 @@ class HomeFragment : Fragment() {
      * Show movie list in fragment
      */
     private fun showMovieList(){
-        viewModel.findMovies() // Find movies
+        setLoading(true)
 
         // Observe movies
-        viewModel.movie.observe(this, { movies ->
+        viewModel.getMovies().observe(this, { movies ->
+            setLoading(false)
             val movieAdapter = MovieAdapter()
             movieAdapter.setMovies(movies)
 
@@ -85,18 +88,19 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
             })
-        })
 
-        setLoading()
+            movieAdapter.notifyDataSetChanged()
+        })
     }
 
     /**
      * Show movie list in fragment
      */
     private fun showTVSeriesList(){
-        viewModel.findTVSeries()
+        setLoading(true)
 
-        viewModel.tvSeries.observe(this, {tvSeries ->
+        viewModel.getTVSeries().observe(this, {tvSeries ->
+            setLoading(false)
             val tvSeriesAdapter = TVSeriesAdapter()
             tvSeriesAdapter.setTVSeries(tvSeries)
 
@@ -114,18 +118,18 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
             })
-        })
 
-        setLoading()
+            tvSeriesAdapter.notifyDataSetChanged()
+        })
     }
 
     /**
-     * Set loading
+     * Set visibility of progressBar
      */
-    private fun setLoading(){
-        // Observe is loading
-        viewModel.isLoading.observe(this, {
-            fragmentHomeBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
-        })
+    private fun setLoading(isVisible: Boolean){
+        if(isVisible)
+            fragmentHomeBinding.progressBar.visibility = View.VISIBLE
+        else
+            fragmentHomeBinding.progressBar.visibility = View.GONE
     }
 }

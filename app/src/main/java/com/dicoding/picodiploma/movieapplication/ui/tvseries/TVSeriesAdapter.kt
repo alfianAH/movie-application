@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.data.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
 
 class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {

@@ -3,7 +3,7 @@ package com.dicoding.picodiploma.movieapplication.ui.genre
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.picodiploma.movieapplication.data.GenresItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsGenreBinding
 
 class GenreAdapter: RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.data.MovieResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {

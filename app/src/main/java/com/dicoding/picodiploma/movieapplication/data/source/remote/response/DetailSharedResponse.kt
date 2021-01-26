@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.data
+package com.dicoding.picodiploma.movieapplication.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 

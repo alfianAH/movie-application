@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.movieapplication.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -8,10 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.data.GenresItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
 import com.dicoding.picodiploma.movieapplication.ui.genre.GenreAdapter
+import com.dicoding.picodiploma.movieapplication.ui.home.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
 
 class DetailActivity : AppCompatActivity() {
@@ -35,7 +37,8 @@ class DetailActivity : AppCompatActivity() {
         val activityDetailMovieBinding = ActivityDetailBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailMovieBinding.detailContent
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+        val factory = ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         setContentView(activityDetailMovieBinding.root)
         setSupportActionBar(activityDetailMovieBinding.toolbar)
@@ -67,10 +70,11 @@ class DetailActivity : AppCompatActivity() {
      * Set UI for movie entity
      */
     private fun populateMovie(){
-        viewModel.findDetailMovie()
+        setLoading(true)
 
         // Observe movie
-        viewModel.detailMovie.observe(this, {movie ->
+        viewModel.getDetailMovie().observe(this, {movie ->
+            setLoading(false)
             supportActionBar?.title = movie.title
 
             // Set UI
@@ -92,19 +96,17 @@ class DetailActivity : AppCompatActivity() {
                     .into(detailContentBinding.imagePoster)
 
         })
-
-        setLoading()
     }
 
     /**
      * Set UI for tv series entity
      */
     private fun populateTVSeries(){
-
-        viewModel.findDetailTVSeries()
+        setLoading(true)
 
         // Observe movie
-        viewModel.detailTvSeries.observe(this, {tvSeries ->
+        viewModel.getDetailTVSeries().observe(this, {tvSeries ->
+            setLoading(false)
             supportActionBar?.title = tvSeries.name
 
             // Set UI
@@ -125,8 +127,6 @@ class DetailActivity : AppCompatActivity() {
                     .error(R.drawable.ic_error)
                     .into(detailContentBinding.imagePoster)
         })
-
-        setLoading()
     }
 
     /**
@@ -145,12 +145,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     /**
-     * Set loading
+     * Set visibility of progressBar
      */
-    private fun setLoading(){
-        // Observe isLoading
-        viewModel.isLoading.observe(this, {
-            detailContentBinding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
-        })
+    private fun setLoading(isVisible: Boolean){
+        if(isVisible)
+            detailContentBinding.progressBar.visibility = View.VISIBLE
+        else
+            detailContentBinding.progressBar.visibility = View.GONE
     }
 }

@@ -1,9 +1,9 @@
 package com.dicoding.picodiploma.movieapplication.api
 
-import com.dicoding.picodiploma.movieapplication.data.DetailMovieResponse
-import com.dicoding.picodiploma.movieapplication.data.DetailTVSeriesResponse
-import com.dicoding.picodiploma.movieapplication.data.MovieResponse
-import com.dicoding.picodiploma.movieapplication.data.TVSeriesResponse
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailMovieResponse
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailTVSeriesResponse
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResponse
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
