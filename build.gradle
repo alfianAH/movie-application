@@ -28,7 +28,7 @@ buildscript {
         idleResourceVersion = '3.3.0'
         androidCoreTestVersion = '2.1.0'
         mockitoKotlinVersion = '2.2.0'
-
+        mockitoVersion = '2.13.0'
     }
     repositories {
         google()
