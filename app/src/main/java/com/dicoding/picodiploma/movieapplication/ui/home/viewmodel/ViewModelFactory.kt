@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.movieapplication.data.source.remote.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailViewModel
 import com.dicoding.picodiploma.movieapplication.ui.home.HomeViewModel
-import com.dicoding.picodiploma.movieapplication.utils.Injection
+import com.dicoding.picodiploma.movieapplication.ui.home.di.Injection
 
 class ViewModelFactory private constructor(private val movieAppRepository: MovieAppRepository):
     ViewModelProvider.NewInstanceFactory(){
