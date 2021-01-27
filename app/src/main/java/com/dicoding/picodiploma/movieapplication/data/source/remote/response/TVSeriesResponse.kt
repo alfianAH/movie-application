@@ -7,7 +7,6 @@ data class TVSeriesResponse(
 	val results: List<TVSeriesResultsItem>
 )
 
-// TODO: DELETE ALL UNUSED ITEMS
 data class TVSeriesResultsItem(
 
 	@field:SerializedName("first_air_date")
@@ -16,23 +15,11 @@ data class TVSeriesResultsItem(
 	@field:SerializedName("overview")
 	val overview: String,
 
-	@field:SerializedName("original_language")
-	val originalLanguage: String,
-
 	@field:SerializedName("genre_ids")
 	val genreIds: List<Int>,
 
 	@field:SerializedName("poster_path")
 	val posterPath: String,
-
-	@field:SerializedName("origin_country")
-	val originCountry: List<String>,
-
-	@field:SerializedName("original_name")
-	val originalName: String,
-
-	@field:SerializedName("popularity")
-	val popularity: Double,
 
 	@field:SerializedName("vote_average")
 	val voteAverage: Double,
@@ -42,7 +29,4 @@ data class TVSeriesResultsItem(
 
 	@field:SerializedName("id")
 	val id: Int,
-
-	@field:SerializedName("vote_count")
-	val voteCount: Int
 )
