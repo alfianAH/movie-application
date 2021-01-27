@@ -1,10 +1,8 @@
 package com.dicoding.picodiploma.movieapplication.data.source.remote
 
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailMovieResponse
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailTVSeriesResponse
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
 import com.dicoding.picodiploma.movieapplication.utils.APILoaderHelper
+import retrofit2.Call
 
 class RemoteDataSource private constructor(private val apiLoaderHelper: APILoaderHelper){
 
@@ -18,13 +16,39 @@ class RemoteDataSource private constructor(private val apiLoaderHelper: APILoade
             }
     }
 
-    fun getMovies(apiKey: String): List<MovieResultsItem> = apiLoaderHelper.findMovies(apiKey)
+    fun getMovies(apiKey: String, callback: LoadMoviesCallback){
+        callback.onAllMoviesReceived(apiLoaderHelper.findMovies(apiKey))
+    }
 
-    fun getTVSeries(apiKey: String): List<TVSeriesResultsItem> = apiLoaderHelper.findTVSeries(apiKey)
+    fun getTVSeries(apiKey: String, callback: LoadTVSeriesCallback){
+        callback.onAllTVSeriesReceived(apiLoaderHelper.findTVSeries(apiKey))
+    }
 
-    fun getDetailMovie(apiKey: String, movieId: Int): DetailMovieResponse =
-        apiLoaderHelper.findDetailMovie(apiKey, movieId)
+    fun getDetailMovie(apiKey: String, movieId: Int, callback: LoadDetailMovieCallback){
+        callback.onDetailMovieReceived(apiLoaderHelper.findDetailMovie(apiKey, movieId))
+    }
 
-    fun getDetailTVSeries(apiKey: String, tvSeriesId: Int): DetailTVSeriesResponse =
-        apiLoaderHelper.findDetailTVSeries(apiKey, tvSeriesId)
+    fun getDetailTVSeries(apiKey: String, tvSeriesId: Int, callback: LoadDetailTVSeriesCallback){
+        callback.onDetailTVSeriesReceived(apiLoaderHelper.findDetailTVSeries(apiKey, tvSeriesId))
+    }
+
+    /**
+     * Interfaces to call client for each responses
+     */
+
+    interface LoadMoviesCallback{
+        fun onAllMoviesReceived(client : Call<MovieResponse>)
+    }
+
+    interface LoadTVSeriesCallback{
+        fun onAllTVSeriesReceived(client: Call<TVSeriesResponse>)
+    }
+
+    interface LoadDetailMovieCallback{
+        fun onDetailMovieReceived(client: Call<DetailMovieResponse>)
+    }
+
+    interface LoadDetailTVSeriesCallback{
+        fun onDetailTVSeriesReceived(client: Call<DetailTVSeriesResponse>)
+    }
 }
