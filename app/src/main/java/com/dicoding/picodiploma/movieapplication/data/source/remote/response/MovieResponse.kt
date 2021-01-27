@@ -1,15 +1,13 @@
 package com.dicoding.picodiploma.movieapplication.data.source.remote.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 data class MovieResponse(
 	@field:SerializedName("results")
 	val results: List<MovieResultsItem>
 )
 
-@Parcelize
+// TODO: DELETE ALL UNUSED ITEMS
 data class MovieResultsItem(
 
 	@field:SerializedName("overview")
@@ -53,4 +51,4 @@ data class MovieResultsItem(
 
 	@field:SerializedName("vote_count")
 	val voteCount: Int
-): Parcelable
+)

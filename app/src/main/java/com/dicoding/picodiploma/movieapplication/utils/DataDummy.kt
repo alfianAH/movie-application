@@ -2,7 +2,7 @@ package com.dicoding.picodiploma.movieapplication.utils
 
 import com.dicoding.picodiploma.movieapplication.data.MovieEntity
 import com.dicoding.picodiploma.movieapplication.data.TVSeriesEntity
-
+// TODO: DELETE THIS DUMMY
 object DataDummy {
 
     fun generateDummyMovies(): List<MovieEntity>{
