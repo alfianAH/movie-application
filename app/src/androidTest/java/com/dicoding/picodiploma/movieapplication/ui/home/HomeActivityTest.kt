@@ -3,15 +3,21 @@ package com.dicoding.picodiploma.movieapplication.ui.home
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.ViewPagerActions
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.rule.ActivityTestRule
 import com.dicoding.picodiploma.movieapplication.R
+import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
 import com.dicoding.picodiploma.movieapplication.utils.DataDummy
+import com.dicoding.picodiploma.movieapplication.utils.EspressoIdlingResources
 import org.hamcrest.core.AllOf.allOf
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class HomeActivityTest {
@@ -19,9 +25,18 @@ class HomeActivityTest {
     private val dummyMovie = DataDummy.generateDummyMovies()
     private val dummyTVSeries = DataDummy.generateDummyTVSeries()
 
+    @get:Rule
+    var activityRule = ActivityTestRule(HomeActivity::class.java)
+
     @Before
     fun setUp() {
         ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResources.espressoTestIdlingResource)
+    }
+
+    @After
+    fun tearDown(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResources.espressoTestIdlingResource)
     }
 
     @Test
@@ -49,16 +64,21 @@ class HomeActivityTest {
         // Click the first list
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
         // Check matches in title
         onView(withId(R.id.text_title)).check(matches(withText(dummyMovie[0].title)))
-        // Check matches in director
-        onView(withId(R.id.text_directors)).check(matches(withText(dummyMovie[0].director)))
-        // Check matches in genre
-        onView(withId(R.id.text_genre)).check(matches(withText(dummyMovie[0].genre)))
-        // Check matches in releaseYear
-        onView(withId(R.id.text_release_date)).check(matches(withText(dummyMovie[0].releaseYear.toString())))
+
+        // Check matches in releaseDate
+        val convertedDate = "Release Date: ${ConvertDate.convertStringToDate(dummyMovie[0].releaseDate)}"
+        onView(withId(R.id.text_release_date)).check(matches(withText(convertedDate)))
+
         // Check matches in summary
-        onView(withId(R.id.text_summary)).check(matches(withText(dummyMovie[0].summary)))
+        onView(withId(R.id.text_summary)).check(matches(withText(dummyMovie[0].overview)))
+
+        // Check matches in status
+        val score = "Score: ${dummyMovie[0].voteAverage} / 10"
+        onView(withId(R.id.text_score)).check(matches(withText(score)))
+
         // Check image is displayed
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
     }
@@ -70,16 +90,21 @@ class HomeActivityTest {
         // Click the first list
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
         // Check matches in title
-        onView(withId(R.id.text_title)).check(matches(withText(dummyTVSeries[0].title)))
-        // Check matches in creator
-        onView(withId(R.id.text_directors)).check(matches(withText(dummyTVSeries[0].creator)))
-        // Check matches in genre
-        onView(withId(R.id.text_genre)).check(matches(withText(dummyTVSeries[0].genre)))
+        onView(withId(R.id.text_title)).check(matches(withText(dummyTVSeries[0].name)))
+
         // Check matches in releaseYear
-        onView(withId(R.id.text_release_date)).check(matches(withText(dummyTVSeries[0].releaseYear.toString())))
+        val convertedDate = "Release Date: ${ConvertDate.convertStringToDate(dummyTVSeries[0].firstAirDate)}"
+        onView(withId(R.id.text_release_date)).check(matches(withText(convertedDate)))
+
         // Check matches in summary
-        onView(withId(R.id.text_summary)).check(matches(withText(dummyTVSeries[0].summary)))
+        onView(withId(R.id.text_summary)).check(matches(withText(dummyTVSeries[0].overview)))
+
+        // Check matches in status
+        val score = "Score: ${dummyTVSeries[0].voteAverage} / 10"
+        onView(withId(R.id.text_score)).check(matches(withText(score)))
+
         // Check image is displayed
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
+import com.dicoding.picodiploma.movieapplication.utils.EspressoIdlingResources
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
     override fun getMovies(apiKey: String): LiveData<List<MovieResultsItem>> {
         val movieResults = MutableLiveData<List<MovieResultsItem>>()
 
+        EspressoIdlingResources.increment()
         // Get movie
         remoteDataSource.getMovies(apiKey, object: RemoteDataSource.LoadMoviesCallback {
 
@@ -46,6 +48,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
+                EspressoIdlingResources.decrement()
             }
         })
         
@@ -55,6 +58,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
     override fun getTVSeries(apiKey: String): LiveData<List<TVSeriesResultsItem>> {
         val tvSeriesResults = MutableLiveData<List<TVSeriesResultsItem>>()
 
+        EspressoIdlingResources.increment()
         // Get TV Series
         remoteDataSource.getTVSeries(apiKey, object: RemoteDataSource.LoadTVSeriesCallback {
 
@@ -77,6 +81,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
+                EspressoIdlingResources.decrement()
             }
         })
 
@@ -85,6 +90,8 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
 
     override fun getDetailMovie(apiKey: String, movieId: Int): LiveData<DetailMovieResponse> {
         val detailMovieResult = MutableLiveData<DetailMovieResponse>()
+
+        EspressoIdlingResources.increment()
         // Get Detail Movie
         remoteDataSource.getDetailMovie(apiKey, movieId,
                 object : RemoteDataSource.LoadDetailMovieCallback {
@@ -106,8 +113,8 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
+                EspressoIdlingResources.decrement()
             }
-
         })
 
         return detailMovieResult
@@ -116,6 +123,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
     override fun getDetailTVSeries(apiKey: String, tvSeriesId: Int): LiveData<DetailTVSeriesResponse> {
         val detailTVSeriesResult = MutableLiveData<DetailTVSeriesResponse>()
 
+        EspressoIdlingResources.increment()
         // Get Detail TV Series
         remoteDataSource.getDetailTVSeries(apiKey,
                 tvSeriesId,
@@ -138,8 +146,8 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
+                EspressoIdlingResources.decrement()
             }
-
         })
 
         return detailTVSeriesResult
