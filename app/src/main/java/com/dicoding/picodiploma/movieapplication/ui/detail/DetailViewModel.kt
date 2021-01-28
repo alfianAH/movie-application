@@ -2,7 +2,7 @@ package com.dicoding.picodiploma.movieapplication.ui.detail
 
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.movieapplication.BuildConfig
-import com.dicoding.picodiploma.movieapplication.data.source.remote.MovieAppRepository
+import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
 
 class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
     private var movieId: Int = 0

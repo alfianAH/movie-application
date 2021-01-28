@@ -1,9 +1,9 @@
-package com.dicoding.picodiploma.movieapplication.data.source.remote
+package com.dicoding.picodiploma.movieapplication.data.source
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dicoding.picodiploma.movieapplication.data.source.MovieAppDataSource
+import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +15,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
         @Volatile
         private var instance: MovieAppRepository? = null
         
-        fun getInstance(remoteDataSource: RemoteDataSource): MovieAppRepository = 
+        fun getInstance(remoteDataSource: RemoteDataSource): MovieAppRepository =
             instance ?: synchronized(this){
                 instance ?: MovieAppRepository(remoteDataSource)
             }
@@ -27,7 +27,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
         val movieResults = MutableLiveData<List<MovieResultsItem>>()
 
         // Get movie
-        remoteDataSource.getMovies(apiKey, object: RemoteDataSource.LoadMoviesCallback{
+        remoteDataSource.getMovies(apiKey, object: RemoteDataSource.LoadMoviesCallback {
 
             override fun onAllMoviesReceived(client: Call<MovieResponse>) {
                 // Get movie from API
@@ -56,7 +56,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
         val tvSeriesResults = MutableLiveData<List<TVSeriesResultsItem>>()
 
         // Get TV Series
-        remoteDataSource.getTVSeries(apiKey, object: RemoteDataSource.LoadTVSeriesCallback{
+        remoteDataSource.getTVSeries(apiKey, object: RemoteDataSource.LoadTVSeriesCallback {
 
             override fun onAllTVSeriesReceived(client: Call<TVSeriesResponse>) {
                 // Get TV Series from API
@@ -87,7 +87,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
         val detailMovieResult = MutableLiveData<DetailMovieResponse>()
         // Get Detail Movie
         remoteDataSource.getDetailMovie(apiKey, movieId,
-                object : RemoteDataSource.LoadDetailMovieCallback{
+                object : RemoteDataSource.LoadDetailMovieCallback {
 
             override fun onDetailMovieReceived(client: Call<DetailMovieResponse>) {
                 // Get Detail Movie from API
@@ -119,7 +119,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
         // Get Detail TV Series
         remoteDataSource.getDetailTVSeries(apiKey,
                 tvSeriesId,
-                object: RemoteDataSource.LoadDetailTVSeriesCallback{
+                object: RemoteDataSource.LoadDetailTVSeriesCallback {
 
             override fun onDetailTVSeriesReceived(client: Call<DetailTVSeriesResponse>) {
                 // Get Detail TV Series from API

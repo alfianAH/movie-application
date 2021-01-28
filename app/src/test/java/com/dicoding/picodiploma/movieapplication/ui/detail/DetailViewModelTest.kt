@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.picodiploma.movieapplication.BuildConfig
-import com.dicoding.picodiploma.movieapplication.data.source.remote.MovieAppRepository
+import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailMovieResponse
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailTVSeriesResponse
 import com.dicoding.picodiploma.movieapplication.utils.DataDummy

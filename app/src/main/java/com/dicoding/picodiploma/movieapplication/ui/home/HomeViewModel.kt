@@ -2,7 +2,7 @@ package com.dicoding.picodiploma.movieapplication.ui.home
 
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.movieapplication.BuildConfig
-import com.dicoding.picodiploma.movieapplication.data.source.remote.MovieAppRepository
+import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
 
 class HomeViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
