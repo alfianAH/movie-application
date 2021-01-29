@@ -39,6 +39,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         // If response is successful, post value
                         if(response.isSuccessful){
                             movieResults.postValue(response.body()?.results)
+                            EspressoIdlingResources.decrement()
                         } else{
                             Log.e(TAG, "onFailure: ${response.message()}")
                         }
@@ -48,7 +49,6 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
-                EspressoIdlingResources.decrement()
             }
         })
         
@@ -72,6 +72,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         // If response is successful, post value
                         if(response.isSuccessful){
                             tvSeriesResults.postValue(response.body()?.results)
+                            EspressoIdlingResources.decrement()
                         } else{
                             Log.e(TAG, "onFailure: ${response.message()}")
                         }
@@ -81,7 +82,6 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
-                EspressoIdlingResources.decrement()
             }
         })
 
@@ -104,6 +104,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         // If response is successful, post value
                         if(response.isSuccessful){
                             detailMovieResult.postValue(response.body())
+                            EspressoIdlingResources.decrement()
                         } else{
                             Log.e(TAG, "onFailure: ${response.message()}")
                         }
@@ -113,7 +114,6 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
-                EspressoIdlingResources.decrement()
             }
         })
 
@@ -137,6 +137,7 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         // If response is successful, post value
                         if(response.isSuccessful){
                             detailTVSeriesResult.postValue(response.body())
+                            EspressoIdlingResources.decrement()
                         } else{
                             Log.e(TAG, "onFailure: ${response.message()}")
                         }
@@ -146,7 +147,6 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
                         Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
-                EspressoIdlingResources.decrement()
             }
         })
 

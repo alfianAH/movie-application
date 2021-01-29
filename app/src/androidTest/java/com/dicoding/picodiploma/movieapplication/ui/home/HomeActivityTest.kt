@@ -9,7 +9,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.ViewPagerActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
 import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
 import com.dicoding.picodiploma.movieapplication.utils.DataDummy
@@ -17,16 +16,12 @@ import com.dicoding.picodiploma.movieapplication.utils.EspressoIdlingResources
 import org.hamcrest.core.AllOf.allOf
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class HomeActivityTest {
 
     private val dummyMovie = DataDummy.generateDummyMovies()
     private val dummyTVSeries = DataDummy.generateDummyTVSeries()
-
-    @get:Rule
-    var activityRule = ActivityTestRule(HomeActivity::class.java)
 
     @Before
     fun setUp() {
