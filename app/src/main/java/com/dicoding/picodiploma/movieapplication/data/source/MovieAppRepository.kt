@@ -65,9 +65,8 @@ class MovieAppRepository private constructor(private val remoteDataSource: Remot
             override fun onAllTVSeriesReceived(client: Call<TVSeriesResponse>) {
                 // Get TV Series from API
                 client.enqueue(object : Callback<TVSeriesResponse> {
-                    override fun onResponse(
-                            call: Call<TVSeriesResponse>,
-                            response: Response<TVSeriesResponse>
+                    override fun onResponse(call: Call<TVSeriesResponse>,
+                                            response: Response<TVSeriesResponse>
                     ) {
                         // If response is successful, post value
                         if(response.isSuccessful){
