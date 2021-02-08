@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.ui.home.di
+package com.dicoding.picodiploma.movieapplication.di
 
 import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource

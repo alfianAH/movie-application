@@ -12,7 +12,7 @@ import com.dicoding.picodiploma.movieapplication.data.source.remote.response.Gen
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
 import com.dicoding.picodiploma.movieapplication.ui.genre.GenreAdapter
-import com.dicoding.picodiploma.movieapplication.ui.home.viewmodel.ViewModelFactory
+import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
 
 class DetailActivity : AppCompatActivity() {

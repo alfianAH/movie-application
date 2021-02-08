@@ -12,7 +12,7 @@ import com.dicoding.picodiploma.movieapplication.data.source.remote.response.Mov
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
-import com.dicoding.picodiploma.movieapplication.ui.home.viewmodel.ViewModelFactory
+import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
 

@@ -41,7 +41,7 @@ class HomeActivityTest {
         // Check data is displayed or not
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
 
-        // Scroll until last position
+        // Scroll until dummyMovies.size
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
                 .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
     }
@@ -54,7 +54,7 @@ class HomeActivityTest {
         // Check data is displayed or not
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
 
-        // Scroll until last position
+        // Scroll until dummyTVSeries.size
         onView(allOf(isDisplayed(), withId(R.id.rv_list)))
                 .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTVSeries.size))
     }
