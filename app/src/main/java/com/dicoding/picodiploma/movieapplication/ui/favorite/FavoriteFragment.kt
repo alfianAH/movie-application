@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.ui.home
+package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentHomeBinding
@@ -16,14 +15,14 @@ import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
 
-class HomeFragment : Fragment() {
+class FavoriteFragment : Fragment() {
 
     companion object{
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
         fun newInstance(index: Int) =
-            HomeFragment().apply {
+            FavoriteFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
                 }
@@ -31,7 +30,7 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +45,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
             val factory = ViewModelFactory.getInstance()
-            viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+            viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
                 1 -> { // Show movie list

@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.ui.home
+package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
@@ -27,7 +27,7 @@ class HomeActivityTest {
 
     @Before
     fun setUp() {
-        ActivityScenario.launch(HomeActivity::class.java)
+        ActivityScenario.launch(FavoriteActivity::class.java)
         IdlingRegistry.getInstance().register(EspressoIdlingResources.espressoTestIdlingResource)
     }
 

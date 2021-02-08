@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.ui.home
+package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -21,7 +21,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager):
     override fun getCount(): Int = 2
 
     override fun getItem(position: Int): Fragment {
-        return HomeFragment.newInstance(position+1)
+        return FavoriteFragment.newInstance(position+1)
     }
 
     override fun getPageTitle(position: Int): CharSequence? =

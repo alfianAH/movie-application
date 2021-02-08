@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailViewModel
-import com.dicoding.picodiploma.movieapplication.ui.home.HomeViewModel
+import com.dicoding.picodiploma.movieapplication.ui.favorite.FavoriteViewModel
 import com.dicoding.picodiploma.movieapplication.di.Injection
 
 class ViewModelFactory private constructor(private val movieAppRepository: MovieAppRepository):
@@ -23,8 +23,8 @@ class ViewModelFactory private constructor(private val movieAppRepository: Movie
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when{
-            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(movieAppRepository) as T
+            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
+                FavoriteViewModel(movieAppRepository) as T
             }
 
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {

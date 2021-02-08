@@ -1,10 +1,10 @@
-package com.dicoding.picodiploma.movieapplication.ui.home
+package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
+class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var activityHomeBinding: ActivityHomeBinding
 

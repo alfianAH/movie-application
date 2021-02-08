@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.ui.home
+package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class HomeViewModelTest {
     private val apiKey = BuildConfig.TMBDApiKey
 
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: FavoriteViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -39,7 +39,7 @@ class HomeViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = HomeViewModel(movieAppRepository)
+        viewModel = FavoriteViewModel(movieAppRepository)
     }
 
     @Test
