@@ -3,16 +3,16 @@
     <item
         android:id="@+id/navigation_movie"
         android:icon="@drawable/ic_baseline_movie_24"
-        android:title="@string/movie"/>
+        android:title="@string/movie" />
 
     <item
         android:id="@+id/navigation_tv_series"
         android:icon="@drawable/ic_baseline_tv_series_24"
-        android:title="@string/tv_series"/>
+        android:title="@string/tv_series" />
 
     <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="@string/favorite"/>
+        android:title="@string/favorite" />
 
 </menu>

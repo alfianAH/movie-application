@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.ui.favorite.FavoriteActivity
+import com.dicoding.picodiploma.movieapplication.ui.home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(mainLooper).postDelayed({
             // Move activity after delay
-            val intent = Intent(this, FavoriteActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }, DELAY_MILLIS)

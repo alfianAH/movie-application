@@ -23,7 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class HomeViewModelTest {
     private val apiKey = BuildConfig.TMBDApiKey
 
-    private lateinit var viewModel: FavoriteViewModel
+    private lateinit var viewModel: FavoriteListViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -39,7 +39,7 @@ class HomeViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = FavoriteViewModel(movieAppRepository)
+        viewModel = FavoriteListViewModel(movieAppRepository)
     }
 
     @Test

@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApplication"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.splashscreen.SplashScreenActivity"
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/Theme.MovieApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +29,6 @@
             android:name=".ui.detail.DetailActivity"
             android:label="@string/title_activity_detail_movie"
             android:theme="@style/Theme.MovieApplication.NoActionBar" />
-        <activity android:name=".ui.favorite.FavoriteActivity" />
     </application>
 
 </manifest>

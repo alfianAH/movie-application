@@ -21,7 +21,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager):
     override fun getCount(): Int = 2
 
     override fun getItem(position: Int): Fragment {
-        return FavoriteFragment.newInstance(position+1)
+        return FavoriteListFragment.newInstance(position+1)
     }
 
     override fun getPageTitle(position: Int): CharSequence? =
