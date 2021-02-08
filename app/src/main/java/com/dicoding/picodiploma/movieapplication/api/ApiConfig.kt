@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.movieapplication.api
 
+import com.dicoding.picodiploma.movieapplication.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +18,7 @@ class ApiConfig {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl(BuildConfig.TMBDBaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

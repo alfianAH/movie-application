@@ -21,13 +21,17 @@ android {
     buildTypes {
         debug{
             buildConfigField 'String', "TMBDApiKey", TMDB_Api_Key
+            buildConfigField 'String', "TMBDBaseUrl", TMDB_Api_Base_URL
             resValue 'string', "tmdb_api_key", TMDB_Api_Key
+            resValue 'string', "tmdb_base_url", TMDB_Api_Base_URL
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', "TMBDApiKey", TMDB_Api_Key
+            buildConfigField 'String', "TMBDBaseUrl", TMDB_Api_Base_URL
             resValue 'string', "tmdb_api_key", TMDB_Api_Key
+            resValue 'string', "tmdb_base_url", TMDB_Api_Base_URL
         }
     }
     compileOptions {

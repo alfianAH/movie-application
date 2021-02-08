@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
                     putInt(ARG_SECTION_NUMBER, index)
                 }
             }
-
     }
 
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
@@ -37,7 +36,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
         return fragmentHomeBinding.root
