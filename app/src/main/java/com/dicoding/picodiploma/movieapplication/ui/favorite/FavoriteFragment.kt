@@ -18,20 +18,13 @@ class FavoriteFragment : Fragment() {
         fragmentFavoriteBinding =
             FragmentFavoriteBinding.inflate(layoutInflater, container, false)
 
+        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), childFragmentManager)
+        fragmentFavoriteBinding.viewPager.adapter = sectionsPagerAdapter
+        fragmentFavoriteBinding.tabs.setupWithViewPager(
+                fragmentFavoriteBinding.viewPager
+        )
+
         // Inflate the layout for this fragment
         return fragmentFavoriteBinding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        if(activity != null){
-            val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), childFragmentManager)
-            fragmentFavoriteBinding.viewPager.adapter = sectionsPagerAdapter
-            fragmentFavoriteBinding.tabs.setupWithViewPager(
-                fragmentFavoriteBinding.viewPager
-            )
-        }
-
     }
 }

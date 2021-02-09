@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.data.source
+package com.dicoding.picodiploma.movieapplication.data
 
 import androidx.lifecycle.LiveData
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.DetailMovieResponse

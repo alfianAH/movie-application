@@ -23,7 +23,7 @@ class FavoriteListFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(index: Int) =
-            FavoriteFragment().apply {
+            FavoriteListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
                 }

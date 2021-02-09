@@ -1,6 +1,6 @@
 package com.dicoding.picodiploma.movieapplication.di
 
-import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
+import com.dicoding.picodiploma.movieapplication.data.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource
 import com.dicoding.picodiploma.movieapplication.utils.APILoaderHelper
 

@@ -2,7 +2,7 @@ package com.dicoding.picodiploma.movieapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.picodiploma.movieapplication.data.source.MovieAppRepository
+import com.dicoding.picodiploma.movieapplication.data.MovieAppRepository
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailViewModel
 import com.dicoding.picodiploma.movieapplication.ui.favorite.FavoriteListViewModel
 import com.dicoding.picodiploma.movieapplication.di.Injection

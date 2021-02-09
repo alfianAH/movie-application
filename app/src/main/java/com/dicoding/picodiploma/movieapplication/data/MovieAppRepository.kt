@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.movieapplication.data.source
+package com.dicoding.picodiploma.movieapplication.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieAppRepository private constructor(private val remoteDataSource: RemoteDataSource): MovieAppDataSource{
+class MovieAppRepository private constructor(private val remoteDataSource: RemoteDataSource):
+    MovieAppDataSource {
     
     companion object{
         @Volatile

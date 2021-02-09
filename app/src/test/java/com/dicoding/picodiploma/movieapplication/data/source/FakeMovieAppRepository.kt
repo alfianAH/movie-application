@@ -3,13 +3,14 @@ package com.dicoding.picodiploma.movieapplication.data.source
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dicoding.picodiploma.movieapplication.data.MovieAppDataSource
 import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FakeMovieAppRepository (private val remoteDataSource: RemoteDataSource): MovieAppDataSource{
+class FakeMovieAppRepository (private val remoteDataSource: RemoteDataSource): MovieAppDataSource {
 
     companion object{
         private const val TAG = "FakeMovieAppRepository"
