@@ -25,5 +25,8 @@ data class TVSeriesEntity(
     val releaseDate: String,
 
     @ColumnInfo(name = "voteAverage")
-    val voteAverage: Double
+    val voteAverage: Double,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false
 )
