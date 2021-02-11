@@ -14,6 +14,10 @@ buildscript {
         recyclerViewVersion = '1.1.0'
         glideVersion = '4.11.0'
 
+        // Room database
+        roomVersion = '2.2.3'
+        roomRuntimeVersion = '2.2.6'
+
         // API
         retrofitVersion = '2.9.0'
         okhttpVersion = '4.9.0'
