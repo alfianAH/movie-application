@@ -29,7 +29,7 @@ interface MovieAppDao{
     fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movieGenreEntities WHERE movieId = :movieId")
-    fun getMovieGenresById(movieId: Int): LiveData<MovieGenreEntity>
+    fun getMovieGenresById(movieId: Int): LiveData<List<MovieGenreEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovieGenres(genres: List<MovieGenreEntity>)
@@ -52,7 +52,7 @@ interface MovieAppDao{
     fun updateTVSeries(tvSeries: TVSeriesEntity)
 
     @Query("SELECT * FROM tvSeriesGenreEntities WHERE tvSeriesId = :tvSeriesId")
-    fun getTVSeriesGenresById(tvSeriesId: Int): LiveData<TVSeriesGenreEntity>
+    fun getTVSeriesGenresById(tvSeriesId: Int): LiveData<List<TVSeriesGenreEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTVSeriesGenres(genres: List<TVSeriesGenreEntity>)

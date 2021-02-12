@@ -33,7 +33,7 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
         movieAppDao.updateMovie(movie)
     }
 
-    fun getMovieGenresById(movieId: Int): LiveData<MovieGenreEntity> =
+    fun getMovieGenresById(movieId: Int): LiveData<List<MovieGenreEntity>> =
             movieAppDao.getMovieGenresById(movieId)
 
     fun insertMovieGenres(genres: List<MovieGenreEntity>) = movieAppDao.insertMovieGenres(genres)
@@ -56,7 +56,7 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
         movieAppDao.updateTVSeries(tvSeries)
     }
 
-    fun getTVSeriesGenresById(tvSeriesId: Int): LiveData<TVSeriesGenreEntity> =
+    fun getTVSeriesGenresById(tvSeriesId: Int): LiveData<List<TVSeriesGenreEntity>> =
             movieAppDao.getTVSeriesGenresById(tvSeriesId)
 
     fun insertTVSeriesGenres(genres: List<TVSeriesGenreEntity>) = movieAppDao.insertTVSeriesGenres(genres)
