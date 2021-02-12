@@ -6,11 +6,7 @@ import com.dicoding.picodiploma.movieapplication.data.MovieAppRepository
 
 class FavoriteListViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    companion object{
-        private const val API_KEY = BuildConfig.TMBDApiKey
-    }
+    fun getMovies() = movieAppRepository.getMovies()
 
-    fun getMovies() = movieAppRepository.getMovies(API_KEY)
-
-    fun getTVSeries() = movieAppRepository.getTVSeries(API_KEY)
+    fun getTVSeries() = movieAppRepository.getTVSeries()
 }

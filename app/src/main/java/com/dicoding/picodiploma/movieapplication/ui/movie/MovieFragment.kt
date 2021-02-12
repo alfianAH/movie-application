@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentMovieBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
+import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
@@ -31,7 +33,7 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(activity != null){
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
             showMovieList()
@@ -42,31 +44,42 @@ class MovieFragment : Fragment() {
      * Show movie list in fragment
      */
     private fun showMovieList(){
-        setLoading(true)
+        val movieAdapter = MovieAdapter()
 
         // Observe movies
         viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
-            setLoading(false)
-            val movieAdapter = MovieAdapter()
-            movieAdapter.setMovies(movies)
+            if (movies != null) {
+                when (movies.status) {
+                    LOADING -> setLoading(true)
 
-            with(fragmentMovieBinding.rvList){
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = movieAdapter
-            }
+                    SUCCESS -> {
+                        setLoading(false)
+                        movieAdapter.setMovies(movies.data)
+                        movieAdapter.notifyDataSetChanged()
+                    }
 
-            // On click listener
-            movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
-                override fun onItemClicked(movie: MovieResultsItem) {
-                    val intent = Intent(activity, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.id)
-                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
-                    startActivity(intent)
+                    ERROR -> {
+                        setLoading(false)
+                        Toast.makeText(context, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            })
+            }
+        })
 
-            movieAdapter.notifyDataSetChanged()
+        with(fragmentMovieBinding.rvList){
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = movieAdapter
+        }
+
+        // On click listener
+        movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
+            override fun onItemClicked(movie: MovieEntity) {
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.id)
+                intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
+                startActivity(intent)
+            }
         })
     }
 

@@ -2,18 +2,22 @@ package com.dicoding.picodiploma.movieapplication.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
-import com.dicoding.picodiploma.movieapplication.ui.genre.GenreAdapter
+import com.dicoding.picodiploma.movieapplication.ui.movie.MovieGenreAdapter
+import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesGenreAdapter
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
+import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -36,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
         val activityDetailMovieBinding = ActivityDetailBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailMovieBinding.detailContent
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         setContentView(activityDetailMovieBinding.root)
@@ -69,31 +73,61 @@ class DetailActivity : AppCompatActivity() {
      * Set UI for movie entity
      */
     private fun populateMovie(){
-        setLoading(true)
-
         // Observe movie
-        viewModel.getDetailMovie().observe(this, {movie ->
-            setLoading(false)
-            supportActionBar?.title = movie.title
+        viewModel.movieDetail.observe(this, { movie ->
 
-            // Set UI
-            detailContentBinding.textTitle.text = movie.title
-            detailContentBinding.textStatus.text = getString(R.string.status, movie.status)
-            detailContentBinding.textScore.text = getString(R.string.score, movie.voteAverage)
-            detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
-                    ConvertDate.convertStringToDate(movie.releaseDate))
-            detailContentBinding.textSummary.text = movie.overview
+            if (movie != null) {
+                when (movie.status) {
+                    LOADING -> setLoading(true)
 
-            // Set genre
-            setGenreRecyclerView(movie.genres)
+                    SUCCESS -> {
+                        val movieEntity = movie.data?.movieEntity
+                        setLoading(false)
+                        supportActionBar?.title = movieEntity?.title
 
-            // Set poster
-            Glide.with(this)
-                    .load(IMAGE_URL + movie.posterPath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
-                    .into(detailContentBinding.imagePoster)
+                        // Set UI
+                        detailContentBinding.textTitle.text = movieEntity?.title
+//                        detailContentBinding.textStatus.text = getString(R.string.status, movieEntity.status)
+                        detailContentBinding.textScore.text = getString(R.string.score, movieEntity?.voteAverage)
+                        detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
+                                ConvertDate.convertStringToDate(movieEntity?.releaseDate as String))
+                        detailContentBinding.textSummary.text = movieEntity.overview
 
+                        // Set genre
+                        setMovieGenreRecyclerView(movie.data.genres)
+
+                        // Set poster
+                        Glide.with(this)
+                                .load(IMAGE_URL + movieEntity.posterPath)
+                                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
+                                .error(R.drawable.ic_error)
+                                .into(detailContentBinding.imagePoster)
+                    }
+
+                    ERROR -> {
+                        setLoading(true)
+                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+
+        // Set genres
+        viewModel.movieGenres.observe(this, { movieGenres ->
+            if (movieGenres != null) {
+                when (movieGenres.status) {
+                    LOADING -> setLoading(true)
+                    SUCCESS -> {
+                        setLoading(false)
+                        setMovieGenreRecyclerView(movieGenres.data as List<MovieGenreEntity>)
+                    }
+
+                    ERROR -> {
+                        setLoading(true)
+                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
     }
 
@@ -101,40 +135,85 @@ class DetailActivity : AppCompatActivity() {
      * Set UI for tv series entity
      */
     private fun populateTVSeries(){
-        setLoading(true)
-
         // Observe movie
-        viewModel.getDetailTVSeries().observe(this, {tvSeries ->
-            setLoading(false)
-            supportActionBar?.title = tvSeries.name
+        viewModel.tvSeriesDetail.observe(this, { tvSeries ->
 
-            // Set UI
-            detailContentBinding.textTitle.text = tvSeries.name
-            detailContentBinding.textStatus.text = getString(R.string.status, tvSeries.status)
-            detailContentBinding.textScore.text = getString(R.string.score, tvSeries.voteAverage)
-            detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
-                    ConvertDate.convertStringToDate(tvSeries.firstAirDate))
-            detailContentBinding.textSummary.text = tvSeries.overview
+            if (tvSeries != null) {
+                when (tvSeries.status) {
+                    LOADING -> setLoading(true)
 
-            // Set genre
-            setGenreRecyclerView(tvSeries.genres)
+                    SUCCESS -> {
+                        val tvSeriesEntity = tvSeries.data?.tvSeriesEntity
+                        setLoading(false)
+                        supportActionBar?.title = tvSeriesEntity?.title
 
-            // Set photo
-            Glide.with(this)
-                    .load(IMAGE_URL + tvSeries.posterPath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
-                    .into(detailContentBinding.imagePoster)
+                        // Set UI
+                        detailContentBinding.textTitle.text = tvSeriesEntity?.title
+//                        detailContentBinding.textStatus.text = getString(R.string.status, movieEntity.status)
+                        detailContentBinding.textScore.text = getString(R.string.score, tvSeriesEntity?.voteAverage)
+                        detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
+                                ConvertDate.convertStringToDate(tvSeriesEntity?.releaseDate as String))
+                        detailContentBinding.textSummary.text = tvSeriesEntity.overview
+
+                        // Set poster
+                        Glide.with(this)
+                                .load(IMAGE_URL + tvSeriesEntity.posterPath)
+                                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
+                                .error(R.drawable.ic_error)
+                                .into(detailContentBinding.imagePoster)
+                    }
+
+                    ERROR -> {
+                        setLoading(true)
+                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+
+        // Set genres
+        viewModel.tvSeriesGenres.observe(this, { tvSeriesGenre ->
+            if (tvSeriesGenre != null) {
+                when (tvSeriesGenre.status) {
+                    LOADING -> setLoading(true)
+                    SUCCESS -> {
+                        setLoading(false)
+                        setTVSeriesGenreRecyclerView(tvSeriesGenre.data as List<TVSeriesGenreEntity>)
+                    }
+
+                    ERROR -> {
+                        setLoading(true)
+                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
     }
 
     /**
-     * Set genre recycler view horizontally
+     * Set movie genre recycler view horizontally
      */
-    private fun setGenreRecyclerView(genres: List<GenresItem>){
+    private fun setMovieGenreRecyclerView(genres: List<MovieGenreEntity>?){
         // Set genre
-        val genreAdapter = GenreAdapter()
+        val genreAdapter = MovieGenreAdapter()
         genreAdapter.setGenres(genres)
+        genreAdapter.notifyDataSetChanged()
+
+        with(detailContentBinding.rvGenreList){
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = genreAdapter
+        }
+    }
+
+    /**
+     * Set movie genre recycler view horizontally
+     */
+    private fun setTVSeriesGenreRecyclerView(genres: List<TVSeriesGenreEntity>?){
+        // Set genre
+        val genreAdapter = TVSeriesGenreAdapter()
+        genreAdapter.setGenres(genres)
+        genreAdapter.notifyDataSetChanged()
 
         with(detailContentBinding.rvGenreList){
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

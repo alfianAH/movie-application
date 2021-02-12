@@ -46,7 +46,7 @@ class FavoriteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[FavoriteListViewModel::class.java]
 
             when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
 
 class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {
@@ -15,14 +15,14 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
         private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
-    private var listTVSeries = ArrayList<TVSeriesResultsItem>()
+    private var listTVSeries = ArrayList<TVSeriesEntity>()
     private var onItemClickCallback: OnItemClickCallback? = null
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setTVSeries(tvSeries: List<TVSeriesResultsItem>?){
+    fun setTVSeries(tvSeries: List<TVSeriesEntity>?){
         if(tvSeries == null) return
         listTVSeries.clear()
         listTVSeries.addAll(tvSeries)
@@ -31,9 +31,9 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
     inner class TVSeriesViewHolder(private val binding: ItemsMovieBinding):
             RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tvSeries: TVSeriesResultsItem){
+        fun bind(tvSeries: TVSeriesEntity){
             with(binding){
-                textItemTitle.text = tvSeries.name
+                textItemTitle.text = tvSeries.title
                 textScore.text = itemView.context.getString(R.string.score, tvSeries.voteAverage)
                 textSummary.text = tvSeries.overview
 
@@ -61,6 +61,6 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
     override fun getItemCount(): Int = listTVSeries.size
 
     interface OnItemClickCallback{
-        fun onItemClicked(tvSeries: TVSeriesResultsItem)
+        fun onItemClicked(tvSeries: TVSeriesEntity)
     }
 }

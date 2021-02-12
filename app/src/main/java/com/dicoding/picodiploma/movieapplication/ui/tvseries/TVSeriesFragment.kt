@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentTvSeriesBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
+import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 
 class TVSeriesFragment : Fragment() {
@@ -31,7 +33,7 @@ class TVSeriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(activity != null){
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[TVSeriesViewModel::class.java]
 
             showTVSeriesList()
@@ -42,29 +44,41 @@ class TVSeriesFragment : Fragment() {
      * Show movie list in fragment
      */
     private fun showTVSeriesList(){
-        setLoading(true)
+        val tvSeriesAdapter = TVSeriesAdapter()
 
-        viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
-            setLoading(false)
-            val tvSeriesAdapter = TVSeriesAdapter()
-            tvSeriesAdapter.setTVSeries(tvSeries)
+        viewModel.getTVSeries().observe(viewLifecycleOwner, { tvSeries ->
+            if (tvSeries != null) {
+                when (tvSeries.status) {
+                    LOADING -> setLoading(true)
 
-            with(fragmentTVSeriesBinding.rvList){
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = tvSeriesAdapter
-            }
+                    SUCCESS -> {
+                        setLoading(false)
+                        tvSeriesAdapter.setTVSeries(tvSeries.data)
+                        tvSeriesAdapter.notifyDataSetChanged()
+                    }
 
-            tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
-                override fun onItemClicked(tvSeries: TVSeriesResultsItem) {
-                    val intent = Intent(activity, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.id)
-                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
-                    startActivity(intent)
+                    ERROR -> {
+                        setLoading(false)
+                        Toast.makeText(context, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            })
+            }
+        })
 
-            tvSeriesAdapter.notifyDataSetChanged()
+
+        with(fragmentTVSeriesBinding.rvList) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = tvSeriesAdapter
+        }
+
+        tvSeriesAdapter.setOnItemClickCallback(object : TVSeriesAdapter.OnItemClickCallback {
+            override fun onItemClicked(tvSeries: TVSeriesEntity) {
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.id)
+                intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
+                startActivity(intent)
+            }
         })
     }
 
