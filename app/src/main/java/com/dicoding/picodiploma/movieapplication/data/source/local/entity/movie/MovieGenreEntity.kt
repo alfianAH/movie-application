@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
-@Entity(tableName = "movieDetailEntities",
+@Entity(tableName = "movieGenreEntities",
     primaryKeys = ["genreId", "movieId"],
     foreignKeys = [ForeignKey(entity = MovieEntity::class,
         parentColumns = ["movieId"],
@@ -16,7 +16,7 @@ import androidx.room.Index
         Index(value = ["movieId"])
     ]
 )
-data class MovieDetailEntity(
+data class MovieGenreEntity(
     @NonNull
     @ColumnInfo(name = "movieId")
     val movieId: Int,
@@ -27,9 +27,5 @@ data class MovieDetailEntity(
 
     @NonNull
     @ColumnInfo(name = "genreName")
-    val genreName: String,
-
-    @NonNull
-    @ColumnInfo(name = "status")
-    val status: String
+    val genreName: String
 )
