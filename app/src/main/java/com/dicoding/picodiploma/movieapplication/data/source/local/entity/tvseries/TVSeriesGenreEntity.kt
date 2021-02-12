@@ -16,7 +16,7 @@ import androidx.room.Index
         Index(value = ["tvSeriesId"])
     ]
 )
-data class TVSeriesDetailEntity(
+data class TVSeriesGenreEntity(
     @NonNull
     @ColumnInfo(name = "tvSeriesId")
     val movieId: Int,
@@ -27,9 +27,5 @@ data class TVSeriesDetailEntity(
 
     @NonNull
     @ColumnInfo(name = "genreName")
-    val genreName: String,
-
-    @NonNull
-    @ColumnInfo(name = "status")
-    val status: String
+    val genreName: String
 )

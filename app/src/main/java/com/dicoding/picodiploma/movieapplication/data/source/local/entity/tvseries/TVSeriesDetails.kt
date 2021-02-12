@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
 
-data class TVSeriesWithGenres (
+data class TVSeriesDetails (
     @Embedded
     val movieEntity: TVSeriesEntity,
 

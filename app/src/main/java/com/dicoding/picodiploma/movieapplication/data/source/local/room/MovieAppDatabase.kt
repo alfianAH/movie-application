@@ -4,15 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetailEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
-import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetailEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 
 @Database(entities = [MovieEntity::class,
-    MovieDetailEntity::class,
+    MovieGenreEntity::class,
     TVSeriesEntity::class,
-    TVSeriesDetailEntity::class
+    TVSeriesGenreEntity::class
 ],
     version = 1,
     exportSchema = false

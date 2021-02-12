@@ -1,9 +1,11 @@
 package com.dicoding.picodiploma.movieapplication.data.source.local
 
 import androidx.lifecycle.LiveData
-import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetailEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
-import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetailEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.room.MovieAppDao
 
@@ -19,7 +21,7 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
 
     fun getFavoriteMovies(): LiveData<List<MovieEntity>> = movieAppDao.getFavoriteMovies()
 
-    fun getDetailMovieById(movieId: Int): LiveData<MovieDetailEntity> =
+    fun getDetailMovieById(movieId: Int): LiveData<MovieDetails> =
         movieAppDao.getDetailMovieById(movieId)
 
     fun insertMovies(movies: List<MovieEntity>) = movieAppDao.insertMovies(movies)
@@ -31,12 +33,17 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
         movieAppDao.updateMovie(movie)
     }
 
+    fun getMovieGenresById(movieId: Int): LiveData<MovieGenreEntity> =
+            movieAppDao.getMovieGenresById(movieId)
+
+    fun insertMovieGenres(genres: List<MovieGenreEntity>) = movieAppDao.insertMovieGenres(genres)
+
     // TV Series
     fun getTVSeries(): LiveData<List<TVSeriesEntity>> = movieAppDao.getTVSeries()
 
     fun getFavoriteTVSeries(): LiveData<List<TVSeriesEntity>> = movieAppDao.getFavoriteTVSeries()
 
-    fun getDetailTVSeriesById(tvSeriesId: Int): LiveData<TVSeriesDetailEntity> =
+    fun getDetailTVSeriesById(tvSeriesId: Int): LiveData<TVSeriesDetails> =
         movieAppDao.getDetailTVSeriesById(tvSeriesId)
 
 
@@ -48,4 +55,9 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
         tvSeries.isFavorite = newState
         movieAppDao.updateTVSeries(tvSeries)
     }
+
+    fun getTVSeriesGenresById(tvSeriesId: Int): LiveData<TVSeriesGenreEntity> =
+            movieAppDao.getTVSeriesGenresById(tvSeriesId)
+
+    fun insertTVSeriesGenres(genres: List<TVSeriesGenreEntity>) = movieAppDao.insertTVSeriesGenres(genres)
 }
