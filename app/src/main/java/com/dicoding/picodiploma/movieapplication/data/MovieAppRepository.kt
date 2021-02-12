@@ -1,155 +1,235 @@
 package com.dicoding.picodiploma.movieapplication.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.dicoding.picodiploma.movieapplication.data.source.local.LocalDataSource
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
+import com.dicoding.picodiploma.movieapplication.data.source.remote.ApiResponse
 import com.dicoding.picodiploma.movieapplication.data.source.remote.RemoteDataSource
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
-import com.dicoding.picodiploma.movieapplication.utils.EspressoIdlingResources
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.dicoding.picodiploma.movieapplication.utils.AppExecutors
+import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 
-class MovieAppRepository private constructor(private val remoteDataSource: RemoteDataSource):
+class MovieAppRepository private constructor(
+        private val remoteDataSource: RemoteDataSource,
+        private val localDataSource: LocalDataSource,
+        private val appExecutors: AppExecutors
+):
     MovieAppDataSource {
     
     companion object{
         @Volatile
         private var instance: MovieAppRepository? = null
         
-        fun getInstance(remoteDataSource: RemoteDataSource): MovieAppRepository =
+        fun getInstance(remoteDataSource: RemoteDataSource,
+                        localDataSource: LocalDataSource,
+                        appExecutors: AppExecutors
+        ): MovieAppRepository =
             instance ?: synchronized(this){
-                instance ?: MovieAppRepository(remoteDataSource)
+                instance ?: MovieAppRepository(remoteDataSource, localDataSource, appExecutors)
             }
-
-        private const val TAG = "MovieAppRepository"
     }
     
-    override fun getMovies(apiKey: String): LiveData<List<MovieResultsItem>> {
-        val movieResults = MutableLiveData<List<MovieResultsItem>>()
+    override fun getMovies(): LiveData<Resource<List<MovieEntity>>> {
 
-        EspressoIdlingResources.increment()
-        // Get movie
-        remoteDataSource.getMovies(apiKey, object: RemoteDataSource.LoadMoviesCallback {
+        return object: NetworkBoundResource<List<MovieEntity>, List<MovieResultsItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<MovieEntity>> =
+                    localDataSource.getMovies()
 
-            override fun onAllMoviesReceived(client: Call<MovieResponse>) {
-                // Get movie from API
-                client.enqueue(object : Callback<MovieResponse> {
-                    override fun onResponse(call: Call<MovieResponse>,
-                                            response: Response<MovieResponse>) {
-                        // If response is successful, post value
-                        if(response.isSuccessful){
-                            movieResults.postValue(response.body()?.results)
-                            EspressoIdlingResources.decrement()
-                        } else{
-                            Log.e(TAG, "onFailure: ${response.message()}")
-                        }
-                    }
+            override fun shouldFetch(data: List<MovieEntity>?): Boolean =
+                    data == null || data.isEmpty()
 
-                    override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                        Log.e(TAG, "onFailure: ${t.message.toString()}")
-                    }
-                })
+            override fun createCall(): LiveData<ApiResponse<List<MovieResultsItem>>> =
+                    remoteDataSource.getMovies()
+
+            override fun saveCallResult(data: List<MovieResultsItem>) {
+                val movieList = ArrayList<MovieEntity>()
+
+                for(response in data){
+                    val movie = MovieEntity(
+                            response.id,
+                            response.title,
+                            response.overview,
+                            response.posterPath,
+                            response.releaseDate,
+                            response.voteAverage
+                    )
+
+                    movieList.add(movie)
+                }
+
+                localDataSource.insertMovies(movieList)
             }
-        })
-        
-        return movieResults
+
+        }.asLiveData()
     }
 
-    override fun getTVSeries(apiKey: String): LiveData<List<TVSeriesResultsItem>> {
-        val tvSeriesResults = MutableLiveData<List<TVSeriesResultsItem>>()
+    override fun getTVSeries(): LiveData<Resource<List<TVSeriesEntity>>> {
 
-        EspressoIdlingResources.increment()
-        // Get TV Series
-        remoteDataSource.getTVSeries(apiKey, object: RemoteDataSource.LoadTVSeriesCallback {
+        return object: NetworkBoundResource<List<TVSeriesEntity>, List<TVSeriesResultsItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<TVSeriesEntity>> =
+                    localDataSource.getTVSeries()
 
-            override fun onAllTVSeriesReceived(client: Call<TVSeriesResponse>) {
-                // Get TV Series from API
-                client.enqueue(object : Callback<TVSeriesResponse> {
-                    override fun onResponse(call: Call<TVSeriesResponse>,
-                                            response: Response<TVSeriesResponse>
-                    ) {
-                        // If response is successful, post value
-                        if(response.isSuccessful){
-                            tvSeriesResults.postValue(response.body()?.results)
-                            EspressoIdlingResources.decrement()
-                        } else{
-                            Log.e(TAG, "onFailure: ${response.message()}")
-                        }
-                    }
+            override fun shouldFetch(data: List<TVSeriesEntity>?): Boolean =
+                    data == null || data.isEmpty()
 
-                    override fun onFailure(call: Call<TVSeriesResponse>, t: Throwable) {
-                        Log.e(TAG, "onFailure: ${t.message.toString()}")
-                    }
-                })
+            override fun createCall(): LiveData<ApiResponse<List<TVSeriesResultsItem>>> =
+                    remoteDataSource.getTVSeries()
+
+            override fun saveCallResult(data: List<TVSeriesResultsItem>) {
+                val tvSeriesList = ArrayList<TVSeriesEntity>()
+
+                for(response in data){
+                    val tvSeries = TVSeriesEntity(
+                            response.id,
+                            response.name,
+                            response.overview,
+                            response.posterPath,
+                            response.firstAirDate,
+                            response.voteAverage
+                    )
+
+                    tvSeriesList.add(tvSeries)
+                }
+
+                localDataSource.insertTVSeries(tvSeriesList)
             }
-        })
-
-        return tvSeriesResults
+        }.asLiveData()
     }
 
-    override fun getDetailMovie(apiKey: String, movieId: Int): LiveData<DetailMovieResponse> {
-        val detailMovieResult = MutableLiveData<DetailMovieResponse>()
+    override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieDetails>> {
 
-        EspressoIdlingResources.increment()
-        // Get Detail Movie
-        remoteDataSource.getDetailMovie(apiKey, movieId,
-                object : RemoteDataSource.LoadDetailMovieCallback {
+        return object : NetworkBoundResource<MovieDetails, List<GenresItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<MovieDetails> =
+                    localDataSource.getDetailMovieById(movieId)
 
-            override fun onDetailMovieReceived(client: Call<DetailMovieResponse>) {
-                // Get Detail Movie from API
-                client.enqueue(object: Callback<DetailMovieResponse> {
-                    override fun onResponse(call: Call<DetailMovieResponse>,
-                                            response: Response<DetailMovieResponse>) {
-                        // If response is successful, post value
-                        if(response.isSuccessful){
-                            detailMovieResult.postValue(response.body())
-                            EspressoIdlingResources.decrement()
-                        } else{
-                            Log.e(TAG, "onFailure: ${response.message()}")
-                        }
-                    }
+            override fun shouldFetch(data: MovieDetails?): Boolean =
+                    data?.movieEntity == null
 
-                    override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
-                        Log.e(TAG, "onFailure: ${t.message.toString()}")
-                    }
-                })
+            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
+                    remoteDataSource.getMovieGenres(movieId)
+
+            override fun saveCallResult(data: List<GenresItem>) {
+                val genreList = ArrayList<MovieGenreEntity>()
+
+                for(response in data){
+                    val genre = MovieGenreEntity(
+                            movieId,
+                            response.id,
+                            response.name
+                    )
+
+                    genreList.add(genre)
+                }
+
+                localDataSource.insertMovieGenres(genreList)
             }
-        })
-
-        return detailMovieResult
+        }.asLiveData()
     }
 
-    override fun getDetailTVSeries(apiKey: String, tvSeriesId: Int): LiveData<DetailTVSeriesResponse> {
-        val detailTVSeriesResult = MutableLiveData<DetailTVSeriesResponse>()
+    override fun getDetailTVSeries(tvSeriesId: Int): LiveData<Resource<TVSeriesDetails>> {
 
-        EspressoIdlingResources.increment()
-        // Get Detail TV Series
-        remoteDataSource.getDetailTVSeries(apiKey,
-                tvSeriesId,
-                object: RemoteDataSource.LoadDetailTVSeriesCallback {
+        return object : NetworkBoundResource<TVSeriesDetails, List<GenresItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<TVSeriesDetails> =
+                    localDataSource.getDetailTVSeriesById(tvSeriesId)
 
-            override fun onDetailTVSeriesReceived(client: Call<DetailTVSeriesResponse>) {
-                // Get Detail TV Series from API
-                client.enqueue(object: Callback<DetailTVSeriesResponse> {
-                    override fun onResponse(call: Call<DetailTVSeriesResponse>,
-                                            response: Response<DetailTVSeriesResponse>) {
-                        // If response is successful, post value
-                        if(response.isSuccessful){
-                            detailTVSeriesResult.postValue(response.body())
-                            EspressoIdlingResources.decrement()
-                        } else{
-                            Log.e(TAG, "onFailure: ${response.message()}")
-                        }
-                    }
+            override fun shouldFetch(data: TVSeriesDetails?): Boolean =
+                    data?.tvSeriesEntity == null
 
-                    override fun onFailure(call: Call<DetailTVSeriesResponse>, t: Throwable) {
-                        Log.e(TAG, "onFailure: ${t.message.toString()}")
-                    }
-                })
+            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
+                    remoteDataSource.getTVSeriesGenres(tvSeriesId)
+
+            override fun saveCallResult(data: List<GenresItem>) {
+                val genreList = ArrayList<TVSeriesGenreEntity>()
+
+                for(response in data){
+                    val genre = TVSeriesGenreEntity(
+                            tvSeriesId,
+                            response.id,
+                            response.name
+                    )
+
+                    genreList.add(genre)
+                }
+
+                localDataSource.insertTVSeriesGenres(genreList)
             }
-        })
-
-        return detailTVSeriesResult
+        }.asLiveData()
     }
+
+    override fun getMovieGenres(movieId: Int): LiveData<Resource<List<MovieGenreEntity>>> {
+        return object : NetworkBoundResource<List<MovieGenreEntity>, List<GenresItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<MovieGenreEntity>> =
+                    localDataSource.getMovieGenresById(movieId)
+
+            override fun shouldFetch(data: List<MovieGenreEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
+                    remoteDataSource.getMovieGenres(movieId)
+
+            override fun saveCallResult(data: List<GenresItem>) {
+                val genreList = ArrayList<MovieGenreEntity>()
+
+                for(response in data){
+                    val genre = MovieGenreEntity(
+                            movieId,
+                            response.id,
+                            response.name
+                    )
+
+                    genreList.add(genre)
+                }
+
+                localDataSource.insertMovieGenres(genreList)
+            }
+
+        }.asLiveData()
+    }
+
+    override fun getTVSeriesGenres(tvSeriesId: Int): LiveData<Resource<List<TVSeriesGenreEntity>>> {
+        return object : NetworkBoundResource<List<TVSeriesGenreEntity>, List<GenresItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<TVSeriesGenreEntity>> =
+                    localDataSource.getTVSeriesGenresById(tvSeriesId)
+
+            override fun shouldFetch(data: List<TVSeriesGenreEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
+                    remoteDataSource.getTVSeriesGenres(tvSeriesId)
+
+            override fun saveCallResult(data: List<GenresItem>) {
+                val genreList = ArrayList<TVSeriesGenreEntity>()
+
+                for(response in data){
+                    val genre = TVSeriesGenreEntity(
+                            tvSeriesId,
+                            response.id,
+                            response.name
+                    )
+
+                    genreList.add(genre)
+                }
+
+                localDataSource.insertTVSeriesGenres(genreList)
+            }
+
+        }.asLiveData()
+    }
+
+    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> =
+            localDataSource.getFavoriteMovies()
+
+    override fun getFavoriteTVSeries(): LiveData<List<TVSeriesEntity>> =
+            localDataSource.getFavoriteTVSeries()
+
+    override fun setFavoriteMovie(movie: MovieEntity, state: Boolean) =
+            appExecutors.diskIO().execute{ localDataSource.setMovieFavorite(movie, state)}
+
+    override fun setFavoriteTVSeries(tvSeries: TVSeriesEntity, state: Boolean) =
+            appExecutors.diskIO().execute{ localDataSource.setTVSeriesFavorite(tvSeries, state)}
 }
