@@ -6,8 +6,8 @@ import com.dicoding.picodiploma.movieapplication.data.source.remote.response.Gen
 
 data class TVSeriesDetails (
     @Embedded
-    val movieEntity: TVSeriesEntity,
+    val tvSeriesEntity: TVSeriesEntity,
 
     @Relation(parentColumn = "tvSeriesId", entityColumn = "tvSeriesId")
-    val genres: List<GenresItem>
+    val genres: List<TVSeriesGenreEntity>
 )
