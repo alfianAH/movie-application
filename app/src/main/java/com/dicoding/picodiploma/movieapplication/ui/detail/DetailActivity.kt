@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.movieapplication.R
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetails
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ActivityDetailBinding
 import com.dicoding.picodiploma.movieapplication.databinding.ContentDetailMovieBinding
@@ -17,6 +19,7 @@ import com.dicoding.picodiploma.movieapplication.ui.movie.MovieGenreAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesGenreAdapter
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.dicoding.picodiploma.movieapplication.utils.ConvertDate
+import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 
 class DetailActivity : AppCompatActivity() {
@@ -31,16 +34,17 @@ class DetailActivity : AppCompatActivity() {
         private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500"
     }
 
+    private lateinit var activityDetailMovieBinding: ActivityDetailBinding
     private lateinit var detailContentBinding: ContentDetailMovieBinding
     private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityDetailMovieBinding = ActivityDetailBinding.inflate(layoutInflater)
+        activityDetailMovieBinding = ActivityDetailBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailMovieBinding.detailContent
 
-        val factory = ViewModelFactory.getInstance(applicationContext)
+        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         setContentView(activityDetailMovieBinding.root)
@@ -73,6 +77,24 @@ class DetailActivity : AppCompatActivity() {
      * Set UI for movie entity
      */
     private fun populateMovie(){
+        // Set genres
+        viewModel.movieGenres.observe(this, { movieGenres ->
+            if (movieGenres != null) {
+                when (movieGenres.status) {
+                    LOADING -> setLoading(true)
+                    SUCCESS -> {
+                        setLoading(false)
+                        setGenreRecyclerView(movieGenres.data as List<MovieGenreEntity>)
+                    }
+
+                    ERROR -> {
+                        setLoading(true)
+                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+
         // Observe movie
         viewModel.movieDetail.observe(this, { movie ->
 
@@ -83,6 +105,8 @@ class DetailActivity : AppCompatActivity() {
                     SUCCESS -> {
                         val movieEntity = movie.data?.movieEntity
                         setLoading(false)
+                        // Set click listener on fab favorite
+                        favoriteButtonClickListener(movie)
                         supportActionBar?.title = movieEntity?.title
 
                         // Set UI
@@ -92,9 +116,6 @@ class DetailActivity : AppCompatActivity() {
                         detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
                                 ConvertDate.convertStringToDate(movieEntity?.releaseDate as String))
                         detailContentBinding.textSummary.text = movieEntity.overview
-
-                        // Set genre
-                        setMovieGenreRecyclerView(movie.data.genres)
 
                         // Set poster
                         Glide.with(this)
@@ -111,15 +132,20 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
+    }
 
+    /**
+     * Set UI for tv series entity
+     */
+    private fun populateTVSeries(){
         // Set genres
-        viewModel.movieGenres.observe(this, { movieGenres ->
-            if (movieGenres != null) {
-                when (movieGenres.status) {
+        viewModel.tvSeriesGenres.observe(this, { tvSeriesGenre ->
+            if (tvSeriesGenre != null) {
+                when (tvSeriesGenre.status) {
                     LOADING -> setLoading(true)
                     SUCCESS -> {
                         setLoading(false)
-                        setMovieGenreRecyclerView(movieGenres.data as List<MovieGenreEntity>)
+                        setGenreRecyclerView(tvSeriesGenre.data as List<TVSeriesGenreEntity>)
                     }
 
                     ERROR -> {
@@ -129,13 +155,8 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
-    }
 
-    /**
-     * Set UI for tv series entity
-     */
-    private fun populateTVSeries(){
-        // Observe movie
+        // Observe tv series
         viewModel.tvSeriesDetail.observe(this, { tvSeries ->
 
             if (tvSeries != null) {
@@ -145,6 +166,8 @@ class DetailActivity : AppCompatActivity() {
                     SUCCESS -> {
                         val tvSeriesEntity = tvSeries.data?.tvSeriesEntity
                         setLoading(false)
+                        // Set click listener on fab favorite
+                        favoriteButtonClickListener(tvSeries)
                         supportActionBar?.title = tvSeriesEntity?.title
 
                         // Set UI
@@ -170,30 +193,13 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
-
-        // Set genres
-        viewModel.tvSeriesGenres.observe(this, { tvSeriesGenre ->
-            if (tvSeriesGenre != null) {
-                when (tvSeriesGenre.status) {
-                    LOADING -> setLoading(true)
-                    SUCCESS -> {
-                        setLoading(false)
-                        setTVSeriesGenreRecyclerView(tvSeriesGenre.data as List<TVSeriesGenreEntity>)
-                    }
-
-                    ERROR -> {
-                        setLoading(true)
-                        Toast.makeText(applicationContext, "Something wrong", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        })
     }
 
     /**
      * Set movie genre recycler view horizontally
      */
-    private fun setMovieGenreRecyclerView(genres: List<MovieGenreEntity>?){
+    @JvmName("setGenreRecyclerView1")
+    private fun setGenreRecyclerView(genres: List<MovieGenreEntity>?){
         // Set genre
         val genreAdapter = MovieGenreAdapter()
         genreAdapter.setGenres(genres)
@@ -209,7 +215,7 @@ class DetailActivity : AppCompatActivity() {
     /**
      * Set movie genre recycler view horizontally
      */
-    private fun setTVSeriesGenreRecyclerView(genres: List<TVSeriesGenreEntity>?){
+    private fun setGenreRecyclerView(genres: List<TVSeriesGenreEntity>?){
         // Set genre
         val genreAdapter = TVSeriesGenreAdapter()
         genreAdapter.setGenres(genres)
@@ -219,6 +225,44 @@ class DetailActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = genreAdapter
+        }
+    }
+
+    /**
+     * Set image resource of fab favorite
+     */
+    private fun setFavoriteStatus(status: Boolean){
+        if(status){
+            activityDetailMovieBinding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+        } else{
+            activityDetailMovieBinding.fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        }
+    }
+
+    @JvmName("favoriteButtonClickListener1")
+    private fun favoriteButtonClickListener(movieDetail: Resource<MovieDetails>){
+        val favoriteStatus = movieDetail.data?.movieEntity?.isFavorite as Boolean
+
+        setFavoriteStatus(favoriteStatus)
+
+        activityDetailMovieBinding.fabFavorite.setOnClickListener {
+            favoriteStatus != favoriteStatus
+            setFavoriteStatus(favoriteStatus)
+
+            viewModel.setFavorite(movieDetail)
+        }
+    }
+
+    private fun favoriteButtonClickListener(tvSeriesDetail: Resource<TVSeriesDetails>){
+        val favoriteStatus = tvSeriesDetail.data?.tvSeriesEntity?.isFavorite as Boolean
+
+        setFavoriteStatus(favoriteStatus)
+
+        activityDetailMovieBinding.fabFavorite.setOnClickListener {
+            favoriteStatus != favoriteStatus
+            setFavoriteStatus(favoriteStatus)
+
+            viewModel.setFavorite(tvSeriesDetail)
         }
     }
 

@@ -43,8 +43,12 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
                 movieAppRepository.getTVSeriesGenres(tvSeriesId)
             }
 
-    fun setFavoriteMovie(){
-        val movieResource = movieDetail.value
+    /**
+     * Set favorite movie
+     */
+    @JvmName("setFavorite1")
+    fun setFavorite(movieResource: Resource<MovieDetails>?){
+//        val movieResource = movieDetail.value
 
         if(movieResource != null){
             val movie = movieResource.data
@@ -58,8 +62,11 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
         }
     }
 
-    fun setFavoriteTVSeries(){
-        val tvSeriesResource = tvSeriesDetail.value
+    /**
+     * Set favorite tv series
+     */
+    fun setFavorite(tvSeriesResource: Resource<TVSeriesDetails>?){
+//        val tvSeriesResource = tvSeriesDetail.value
 
         if(tvSeriesResource != null){
             val tvSeries = tvSeriesResource.data

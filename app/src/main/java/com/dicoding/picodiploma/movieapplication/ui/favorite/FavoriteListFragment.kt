@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.MovieResultsItem
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.TVSeriesResultsItem
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentFavoriteListBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
@@ -62,65 +62,64 @@ class FavoriteListFragment : Fragment() {
     }
 
     /**
-     * Show movie list in fragment
+     * Show favorite movie list in fragment
      */
     private fun showMovieList(){
-//        setLoading(true)
-//
-//        // Observe movies
-//        viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
-//            setLoading(false)
-//            val movieAdapter = MovieAdapter()
-//            movieAdapter.setMovies(movies)
-//
-//            with(fragmentFavoriteListBinding.rvList){
-//                layoutManager = LinearLayoutManager(context)
-//                setHasFixedSize(true)
-//                adapter = movieAdapter
-//            }
-//
-//            // On click listener
-//            movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
-//                override fun onItemClicked(movie: MovieResultsItem) {
-//                    val intent = Intent(activity, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.id)
-//                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
-//                    startActivity(intent)
-//                }
-//            })
-//
-//            movieAdapter.notifyDataSetChanged()
-//        })
+        setLoading(true)
+
+        // Observe movies
+        viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+            setLoading(false)
+            val movieAdapter = MovieAdapter()
+            movieAdapter.setMovies(movies)
+            movieAdapter.notifyDataSetChanged()
+
+            with(fragmentFavoriteListBinding.rvList){
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = movieAdapter
+            }
+
+            // On click listener
+            movieAdapter.setOnItemClickCallback(object: MovieAdapter.OnItemClickCallback{
+                override fun onItemClicked(movie: MovieEntity) {
+                    val intent = Intent(activity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.id)
+                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.MOVIE_ID)
+                    startActivity(intent)
+                }
+            })
+        })
     }
 
     /**
-     * Show movie list in fragment
+     * Show favorite tvSeries list in fragment
      */
     private fun showTVSeriesList(){
-//        setLoading(true)
-//
-//        viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
-//            setLoading(false)
-//            val tvSeriesAdapter = TVSeriesAdapter()
-//            tvSeriesAdapter.setTVSeries(tvSeries)
-//
-//            with(fragmentFavoriteListBinding.rvList){
-//                layoutManager = LinearLayoutManager(context)
-//                setHasFixedSize(true)
-//                adapter = tvSeriesAdapter
-//            }
-//
-//            tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
-//                override fun onItemClicked(tvSeries: TVSeriesResultsItem) {
-//                    val intent = Intent(activity, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.id)
-//                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
-//                    startActivity(intent)
-//                }
-//            })
-//
-//            tvSeriesAdapter.notifyDataSetChanged()
-//        })
+        setLoading(true)
+
+        viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
+            setLoading(false)
+            val tvSeriesAdapter = TVSeriesAdapter()
+            tvSeriesAdapter.setTVSeries(tvSeries)
+            tvSeriesAdapter.notifyDataSetChanged()
+
+            with(fragmentFavoriteListBinding.rvList){
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = tvSeriesAdapter
+            }
+
+            tvSeriesAdapter.setOnItemClickCallback(object: TVSeriesAdapter.OnItemClickCallback{
+                override fun onItemClicked(tvSeries: TVSeriesEntity) {
+                    val intent = Intent(activity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_TV_SERIES, tvSeries.id)
+                    intent.putExtra(DetailActivity.EXTRA_ID, DetailActivity.TV_SERIES_ID)
+                    startActivity(intent)
+                }
+            })
+
+        })
     }
 
     /**

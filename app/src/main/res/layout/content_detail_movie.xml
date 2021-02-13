@@ -136,19 +136,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/summary" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"
-        app:backgroundTint="@android:color/holo_red_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_favorite_border_24"
-        tools:ignore="ContentDescription" />
-
-
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
