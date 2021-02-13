@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentFavoriteListBinding
@@ -15,6 +18,7 @@ import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class FavoriteListFragment : Fragment() {
 
@@ -31,6 +35,8 @@ class FavoriteListFragment : Fragment() {
     }
 
     private lateinit var fragmentFavoriteListBinding: FragmentFavoriteListBinding
+    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var tvSeriesAdapter: TVSeriesAdapter
     private lateinit var viewModel: FavoriteListViewModel
 
     override fun onCreateView(
@@ -45,6 +51,9 @@ class FavoriteListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Set touch helper to recycler view
+        itemTouchHelper.attachToRecyclerView(fragmentFavoriteListBinding.rvList)
+
         if(activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[FavoriteListViewModel::class.java]
@@ -66,6 +75,43 @@ class FavoriteListFragment : Fragment() {
         }
     }
 
+    private val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.Callback(){
+        // Get touch movement. True when to the left or right
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int =
+            makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean = true
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            if(view != null){
+                val swipedPosition = viewHolder.adapterPosition
+
+                // Set entity that get swiped
+                when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
+                    1 -> { // When to the movie list
+                        val movieEntity = movieAdapter.getSwipedData(swipedPosition)
+                        movieEntity?.let { viewModel.setFavorite(it) }
+                        makeSnackbar(movieEntity)
+                    }
+
+                    2 -> { // When to the tv series list
+                        val tvSeriesEntity = tvSeriesAdapter.getSwipedData(swipedPosition)
+                        tvSeriesEntity?.let { viewModel.setFavorite(it) }
+                        makeSnackbar(tvSeriesEntity)
+                    }
+                }
+            }
+        }
+
+    })
+
     /**
      * Show favorite movie list in fragment
      */
@@ -75,7 +121,7 @@ class FavoriteListFragment : Fragment() {
         // Observe movies
         viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
             setLoading(false)
-            val movieAdapter = MovieAdapter()
+            movieAdapter = MovieAdapter()
             movieAdapter.submitList(movies)
             movieAdapter.notifyDataSetChanged()
 
@@ -105,7 +151,7 @@ class FavoriteListFragment : Fragment() {
 
         viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
             setLoading(false)
-            val tvSeriesAdapter = TVSeriesAdapter()
+            tvSeriesAdapter = TVSeriesAdapter()
             tvSeriesAdapter.submitList(tvSeries)
             tvSeriesAdapter.notifyDataSetChanged()
 
@@ -125,6 +171,30 @@ class FavoriteListFragment : Fragment() {
             })
 
         })
+    }
+
+    /**
+     * Make undo delete snackbar for movie
+     */
+    private fun makeSnackbar(movieEntity: MovieEntity?){
+        Snackbar.make(view as View, R.string.message_undo, Snackbar.LENGTH_LONG).apply {
+            setAction(R.string.message_ok){
+                movieEntity?.let { viewModel.setFavorite(it) }
+            }
+            show()
+        }
+    }
+    
+    /**
+     * Make undo delete snackbar for tv series
+     */
+    private fun makeSnackbar(tvSeriesEntity: TVSeriesEntity?){
+        Snackbar.make(view as View, R.string.message_undo, Snackbar.LENGTH_LONG).apply {
+            setAction(R.string.message_ok){
+                tvSeriesEntity?.let { viewModel.setFavorite(it) }
+            }
+            show()
+        }
     }
 
     /**

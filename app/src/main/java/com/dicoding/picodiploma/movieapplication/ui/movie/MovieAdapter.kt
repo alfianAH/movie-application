@@ -62,6 +62,8 @@ class MovieAdapter: PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(
         if(movie != null) holder.bind(movie)
     }
 
+    fun getSwipedData(swipedPosition: Int): MovieEntity? = getItem(swipedPosition)
+
     interface OnItemClickCallback{
         fun onItemClicked(movie: MovieEntity)
     }

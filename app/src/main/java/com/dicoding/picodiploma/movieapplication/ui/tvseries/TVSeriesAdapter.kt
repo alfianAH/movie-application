@@ -63,6 +63,8 @@ class TVSeriesAdapter: PagedListAdapter<TVSeriesEntity, TVSeriesAdapter.TVSeries
         if(tvSeries != null) holder.bind(tvSeries)
     }
 
+    fun getSwipedData(swipedPosition: Int): TVSeriesEntity? = getItem(swipedPosition)
+
     interface OnItemClickCallback{
         fun onItemClicked(tvSeries: TVSeriesEntity)
     }

@@ -12,4 +12,14 @@ class FavoriteListViewModel(private val movieAppRepository: MovieAppRepository):
     fun getMovies(): LiveData<PagedList<MovieEntity>> = movieAppRepository.getFavoriteMovies()
 
     fun getTVSeries(): LiveData<PagedList<TVSeriesEntity>> = movieAppRepository.getFavoriteTVSeries()
+
+    fun setFavorite(movieEntity: MovieEntity){
+        val newState = !movieEntity.isFavorite
+        movieAppRepository.setFavorite(movieEntity, newState)
+    }
+
+    fun setFavorite(tvSeriesEntity: TVSeriesEntity){
+        val newState = !tvSeriesEntity.isFavorite
+        movieAppRepository.setFavorite(tvSeriesEntity, newState)
+    }
 }

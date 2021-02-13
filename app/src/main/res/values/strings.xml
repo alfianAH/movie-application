@@ -12,5 +12,6 @@
     <string name="tv_series">TV Series</string>
     <string name="favorite">Favorite</string>
     <string name="title_activity_home">MainActivity</string>
-
+    <string name="message_undo">Cancel delete?</string>
+    <string name="message_ok">OK</string>
 </resources>
