@@ -48,8 +48,6 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
      */
     @JvmName("setFavorite1")
     fun setFavorite(movieResource: Resource<MovieDetails>?){
-//        val movieResource = movieDetail.value
-
         if(movieResource != null){
             val movie = movieResource.data
 
@@ -57,7 +55,7 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
                 val movieEntity = movie.movieEntity
                 val newState = !movieEntity.isFavorite
 
-                movieAppRepository.setFavoriteMovie(movieEntity, newState)
+                movieAppRepository.setFavorite(movieEntity, newState)
             }
         }
     }
@@ -66,8 +64,6 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
      * Set favorite tv series
      */
     fun setFavorite(tvSeriesResource: Resource<TVSeriesDetails>?){
-//        val tvSeriesResource = tvSeriesDetail.value
-
         if(tvSeriesResource != null){
             val tvSeries = tvSeriesResource.data
 
@@ -75,7 +71,7 @@ class DetailViewModel(private val movieAppRepository: MovieAppRepository): ViewM
                 val tvSeriesEntity = tvSeries.tvSeriesEntity
                 val newState = !tvSeriesEntity.isFavorite
 
-                movieAppRepository.setFavoriteTVSeries(tvSeriesEntity, newState)
+                movieAppRepository.setFavorite(tvSeriesEntity, newState)
             }
         }
     }

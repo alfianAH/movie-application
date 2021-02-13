@@ -227,9 +227,9 @@ class MovieAppRepository private constructor(
     override fun getFavoriteTVSeries(): LiveData<List<TVSeriesEntity>> =
             localDataSource.getFavoriteTVSeries()
 
-    override fun setFavoriteMovie(movie: MovieEntity, state: Boolean) =
+    override fun setFavorite(movie: MovieEntity, state: Boolean) =
             appExecutors.diskIO().execute{ localDataSource.setMovieFavorite(movie, state)}
 
-    override fun setFavoriteTVSeries(tvSeries: TVSeriesEntity, state: Boolean) =
+    override fun setFavorite(tvSeries: TVSeriesEntity, state: Boolean) =
             appExecutors.diskIO().execute{ localDataSource.setTVSeriesFavorite(tvSeries, state)}
 }

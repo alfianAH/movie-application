@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,15 +49,20 @@ class FavoriteListFragment : Fragment() {
         if(activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[FavoriteListViewModel::class.java]
+        }
+    }
 
-            when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
-                1 -> { // Show movie list
-                    showMovieList()
-                }
+    override fun onResume() {
+        super.onResume()
 
-                2 -> { // Show tv series list
-                    showTVSeriesList()
-                }
+        // Set list on resume
+        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
+            1 -> { // Show movie list
+                showMovieList()
+            }
+
+            2 -> { // Show tv series list
+                showTVSeriesList()
             }
         }
     }

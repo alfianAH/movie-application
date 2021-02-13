@@ -239,6 +239,9 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Favorite Button click listener for movie
+     */
     @JvmName("favoriteButtonClickListener1")
     private fun favoriteButtonClickListener(movieDetail: Resource<MovieDetails>){
         val favoriteStatus = movieDetail.data?.movieEntity?.isFavorite as Boolean
@@ -253,6 +256,9 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Favorite Button click listener for TVSeries
+     */
     private fun favoriteButtonClickListener(tvSeriesDetail: Resource<TVSeriesDetails>){
         val favoriteStatus = tvSeriesDetail.data?.tvSeriesEntity?.isFavorite as Boolean
 
