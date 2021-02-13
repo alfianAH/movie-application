@@ -53,7 +53,7 @@ class TVSeriesFragment : Fragment() {
 
                     SUCCESS -> {
                         setLoading(false)
-                        tvSeriesAdapter.setTVSeries(tvSeries.data)
+                        tvSeriesAdapter.submitList(tvSeries.data)
                         tvSeriesAdapter.notifyDataSetChanged()
                     }
 

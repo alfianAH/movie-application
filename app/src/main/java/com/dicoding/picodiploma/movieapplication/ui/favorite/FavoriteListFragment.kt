@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.movieapplication.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +76,7 @@ class FavoriteListFragment : Fragment() {
         viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
             setLoading(false)
             val movieAdapter = MovieAdapter()
-            movieAdapter.setMovies(movies)
+            movieAdapter.submitList(movies)
             movieAdapter.notifyDataSetChanged()
 
             with(fragmentFavoriteListBinding.rvList){
@@ -107,7 +106,7 @@ class FavoriteListFragment : Fragment() {
         viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
             setLoading(false)
             val tvSeriesAdapter = TVSeriesAdapter()
-            tvSeriesAdapter.setTVSeries(tvSeries)
+            tvSeriesAdapter.submitList(tvSeries)
             tvSeriesAdapter.notifyDataSetChanged()
 
             with(fragmentFavoriteListBinding.rvList){

@@ -54,7 +54,7 @@ class MovieFragment : Fragment() {
 
                     SUCCESS -> {
                         setLoading(false)
-                        movieAdapter.setMovies(movies.data)
+                        movieAdapter.submitList(movies.data)
                         movieAdapter.notifyDataSetChanged()
                     }
 

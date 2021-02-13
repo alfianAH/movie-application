@@ -2,6 +2,8 @@ package com.dicoding.picodiploma.movieapplication.ui.tvseries
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -9,23 +11,26 @@ import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsMovieBinding
 
-class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>() {
+class TVSeriesAdapter: PagedListAdapter<TVSeriesEntity, TVSeriesAdapter.TVSeriesViewHolder>(DIFF_CALLBACK) {
 
     companion object{
         private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TVSeriesEntity>(){
+            override fun areItemsTheSame(oldItem: TVSeriesEntity, newItem: TVSeriesEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TVSeriesEntity, newItem: TVSeriesEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
-    private var listTVSeries = ArrayList<TVSeriesEntity>()
     private var onItemClickCallback: OnItemClickCallback? = null
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
-    }
-
-    fun setTVSeries(tvSeries: List<TVSeriesEntity>?){
-        if(tvSeries == null) return
-        listTVSeries.clear()
-        listTVSeries.addAll(tvSeries)
     }
 
     inner class TVSeriesViewHolder(private val binding: ItemsMovieBinding):
@@ -54,11 +59,9 @@ class TVSeriesAdapter: RecyclerView.Adapter<TVSeriesAdapter.TVSeriesViewHolder>(
     }
 
     override fun onBindViewHolder(holder: TVSeriesViewHolder, position: Int) {
-        val movie = listTVSeries[position]
-        holder.bind(movie)
+        val tvSeries = getItem(position)
+        if(tvSeries != null) holder.bind(tvSeries)
     }
-
-    override fun getItemCount(): Int = listTVSeries.size
 
     interface OnItemClickCallback{
         fun onItemClicked(tvSeries: TVSeriesEntity)

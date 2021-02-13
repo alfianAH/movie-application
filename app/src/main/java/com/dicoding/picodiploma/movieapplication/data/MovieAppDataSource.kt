@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.movieapplication.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
@@ -10,14 +11,14 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 
 interface MovieAppDataSource {
-    fun getMovies()                           : LiveData<Resource<List<MovieEntity>>>
-    fun getTVSeries()                         : LiveData<Resource<List<TVSeriesEntity>>>
+    fun getMovies()                           : LiveData<Resource<PagedList<MovieEntity>>>
+    fun getTVSeries()                         : LiveData<Resource<PagedList<TVSeriesEntity>>>
     fun getDetailMovie(movieId: Int)          : LiveData<Resource<MovieDetails>>
     fun getDetailTVSeries(tvSeriesId: Int)    : LiveData<Resource<TVSeriesDetails>>
     fun getMovieGenres(movieId: Int)          : LiveData<Resource<List<MovieGenreEntity>>>
     fun getTVSeriesGenres(tvSeriesId: Int)    : LiveData<Resource<List<TVSeriesGenreEntity>>>
-    fun getFavoriteMovies()                   : LiveData<List<MovieEntity>>
-    fun getFavoriteTVSeries()                 : LiveData<List<TVSeriesEntity>>
+    fun getFavoriteMovies()                   : LiveData<PagedList<MovieEntity>>
+    fun getFavoriteTVSeries()                 : LiveData<PagedList<TVSeriesEntity>>
 
     fun setFavorite(movie: MovieEntity, state: Boolean)
     fun setFavorite(tvSeries: TVSeriesEntity, state: Boolean)

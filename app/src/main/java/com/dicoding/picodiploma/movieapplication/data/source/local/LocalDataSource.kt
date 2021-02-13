@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.movieapplication.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
@@ -17,9 +18,9 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
             INSTANCE ?: LocalDataSource(movieAppDao)
     }
 
-    fun getMovies(): LiveData<List<MovieEntity>> = movieAppDao.getMovies()
+    fun getMovies(): DataSource.Factory<Int, MovieEntity> = movieAppDao.getMovies()
 
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = movieAppDao.getFavoriteMovies()
+    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = movieAppDao.getFavoriteMovies()
 
     fun getDetailMovieById(movieId: Int): LiveData<MovieDetails> =
         movieAppDao.getDetailMovieById(movieId)
@@ -39,9 +40,9 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
     fun insertMovieGenres(genres: List<MovieGenreEntity>) = movieAppDao.insertMovieGenres(genres)
 
     // TV Series
-    fun getTVSeries(): LiveData<List<TVSeriesEntity>> = movieAppDao.getTVSeries()
+    fun getTVSeries(): DataSource.Factory<Int, TVSeriesEntity> = movieAppDao.getTVSeries()
 
-    fun getFavoriteTVSeries(): LiveData<List<TVSeriesEntity>> = movieAppDao.getFavoriteTVSeries()
+    fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity> = movieAppDao.getFavoriteTVSeries()
 
     fun getDetailTVSeriesById(tvSeriesId: Int): LiveData<TVSeriesDetails> =
         movieAppDao.getDetailTVSeriesById(tvSeriesId)

@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.movieapplication.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
@@ -13,10 +14,10 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 interface MovieAppDao{
     // Movie
     @Query("SELECT * FROM movieEntities")
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movieEntities WHERE isFavorite = 1")
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Transaction
     @Query("SELECT * FROM movieEntities WHERE movieId = :movieId")
@@ -36,10 +37,10 @@ interface MovieAppDao{
 
     // TV Series
     @Query("SELECT * FROM tvSeriesEntities")
-    fun getTVSeries(): LiveData<List<TVSeriesEntity>>
+    fun getTVSeries(): DataSource.Factory<Int, TVSeriesEntity>
 
     @Query("SELECT * FROM tvSeriesEntities WHERE isFavorite = 1")
-    fun getFavoriteTVSeries(): LiveData<List<TVSeriesEntity>>
+    fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity>
 
     @Transaction
     @Query("SELECT * FROM tvSeriesEntities WHERE tvSeriesId = :tvSeriesId")
