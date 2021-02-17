@@ -86,15 +86,15 @@ class FavoriteListFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onResume()
 
         // Set list on resume
-//        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
-//            1 -> { // Show movie list
-//                showMovieList(SortUtils.NAME)
-//            }
-//
-//            2 -> { // Show tv series list
-//                showTVSeriesList(SortUtils.NAME)
-//            }
-//        }
+        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
+            1 -> { // Show movie list
+                showMovieList(SortUtils.NAME)
+            }
+
+            2 -> { // Show tv series list
+                showTVSeriesList(SortUtils.NAME)
+            }
+        }
     }
 
     /**
@@ -114,6 +114,9 @@ class FavoriteListFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spinner.onItemSelectedListener = this
     }
 
+    /**
+     * Set sorted favorite list
+     */
     private fun setList(parent: AdapterView<*>, position: Int,
                         list: (sortBy: String) -> Unit){
         when(parent.getItemAtPosition(position).toString().toLowerCase(Locale.getDefault())){
