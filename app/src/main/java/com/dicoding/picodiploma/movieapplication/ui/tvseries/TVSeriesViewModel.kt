@@ -9,6 +9,6 @@ import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 
 class TVSeriesViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    fun getTVSeries(): LiveData<Resource<PagedList<TVSeriesEntity>>> =
-            movieAppRepository.getTVSeries()
+    fun getTVSeries(sortBy: String): LiveData<Resource<PagedList<TVSeriesEntity>>> =
+            movieAppRepository.getTVSeries(sortBy)
 }

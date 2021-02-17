@@ -36,7 +36,7 @@ class MovieAppRepository private constructor(
             }
     }
     
-    override fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
+    override fun getMovies(sortBy: String): LiveData<Resource<PagedList<MovieEntity>>> {
 
         return object: NetworkBoundResource<PagedList<MovieEntity>, List<MovieResultsItem>>(appExecutors){
             override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
@@ -46,7 +46,7 @@ class MovieAppRepository private constructor(
                     .setPageSize(4)
                     .build()
 
-                return LivePagedListBuilder(localDataSource.getMovies(), config).build()
+                return LivePagedListBuilder(localDataSource.getMovies(sortBy), config).build()
             }
 
             override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
@@ -77,7 +77,7 @@ class MovieAppRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getTVSeries(): LiveData<Resource<PagedList<TVSeriesEntity>>> {
+    override fun getTVSeries(sortBy: String): LiveData<Resource<PagedList<TVSeriesEntity>>> {
 
         return object: NetworkBoundResource<PagedList<TVSeriesEntity>, List<TVSeriesResultsItem>>(appExecutors){
             override fun loadFromDB(): LiveData<PagedList<TVSeriesEntity>> {
@@ -87,7 +87,7 @@ class MovieAppRepository private constructor(
                     .setPageSize(4)
                     .build()
 
-                return LivePagedListBuilder(localDataSource.getTVSeries(), config).build()
+                return LivePagedListBuilder(localDataSource.getTVSeries(sortBy), config).build()
             }
 
             override fun shouldFetch(data: PagedList<TVSeriesEntity>?): Boolean =

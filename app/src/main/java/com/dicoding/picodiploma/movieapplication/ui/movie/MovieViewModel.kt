@@ -9,6 +9,6 @@ import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 
 class MovieViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> =
-            movieAppRepository.getMovies()
+    fun getMovies(sortBy: String): LiveData<Resource<PagedList<MovieEntity>>> =
+            movieAppRepository.getMovies(sortBy)
 }

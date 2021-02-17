@@ -16,8 +16,10 @@ import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentTvSeriesBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
+import com.dicoding.picodiploma.movieapplication.utils.SortUtils
 import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
+import java.util.*
 
 class TVSeriesFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -40,20 +42,20 @@ class TVSeriesFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[TVSeriesViewModel::class.java]
 
-            showTVSeriesList()
+//            showTVSeriesList(SortUtils.NAME)
             setSpinner()
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?,
                                 position: Int, id: Long) {
-        when(parent.getItemAtPosition(position).toString()){
-            parent.resources.getString(R.string.name) -> { // Sort by name
-
+        when(parent.getItemAtPosition(position).toString().toLowerCase(Locale.getDefault())){
+            parent.resources.getString(R.string.name).toLowerCase(Locale.getDefault()) -> { // Sort by name
+                showTVSeriesList(SortUtils.NAME)
             }
 
-            parent.resources.getString(R.string.rating) -> {  // Sort by rating
-
+            parent.resources.getString(R.string.rating).toLowerCase(Locale.getDefault()) -> {  // Sort by rating
+                showTVSeriesList(SortUtils.RATING)
             }
         }
     }
@@ -80,10 +82,10 @@ class TVSeriesFragment : Fragment(), AdapterView.OnItemSelectedListener {
     /**
      * Show movie list in fragment
      */
-    private fun showTVSeriesList(){
+    private fun showTVSeriesList(sortBy: String){
         val tvSeriesAdapter = TVSeriesAdapter()
 
-        viewModel.getTVSeries().observe(viewLifecycleOwner, { tvSeries ->
+        viewModel.getTVSeries(sortBy).observe(viewLifecycleOwner, { tvSeries ->
             if (tvSeries != null) {
                 when (tvSeries.status) {
                     LOADING -> setLoading(true)

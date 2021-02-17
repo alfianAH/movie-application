@@ -3,6 +3,7 @@ package com.dicoding.picodiploma.movieapplication.data.source.local.room
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
@@ -13,8 +14,8 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 @Dao
 interface MovieAppDao{
     // Movie
-    @Query("SELECT * FROM movieEntities")
-    fun getMovies(): DataSource.Factory<Int, MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movieEntities WHERE isFavorite = 1")
     fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
@@ -36,8 +37,8 @@ interface MovieAppDao{
     fun insertMovieGenres(genres: List<MovieGenreEntity>)
 
     // TV Series
-    @Query("SELECT * FROM tvSeriesEntities")
-    fun getTVSeries(): DataSource.Factory<Int, TVSeriesEntity>
+    @RawQuery(observedEntities = [TVSeriesEntity::class])
+    fun getTVSeries(query: SupportSQLiteQuery): DataSource.Factory<Int, TVSeriesEntity>
 
     @Query("SELECT * FROM tvSeriesEntities WHERE isFavorite = 1")
     fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity>

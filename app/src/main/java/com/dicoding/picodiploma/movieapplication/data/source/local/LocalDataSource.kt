@@ -9,6 +9,7 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.data.source.local.room.MovieAppDao
+import com.dicoding.picodiploma.movieapplication.utils.SortUtils
 
 class LocalDataSource(private val movieAppDao: MovieAppDao) {
     companion object{
@@ -18,7 +19,10 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
             INSTANCE ?: LocalDataSource(movieAppDao)
     }
 
-    fun getMovies(): DataSource.Factory<Int, MovieEntity> = movieAppDao.getMovies()
+    fun getMovies(sortBy: String): DataSource.Factory<Int, MovieEntity> {
+        val query = SortUtils.getSortedMovie(sortBy)
+        return movieAppDao.getMovies(query)
+    }
 
     fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = movieAppDao.getFavoriteMovies()
 
@@ -40,7 +44,10 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
     fun insertMovieGenres(genres: List<MovieGenreEntity>) = movieAppDao.insertMovieGenres(genres)
 
     // TV Series
-    fun getTVSeries(): DataSource.Factory<Int, TVSeriesEntity> = movieAppDao.getTVSeries()
+    fun getTVSeries(sortBy: String): DataSource.Factory<Int, TVSeriesEntity> {
+        val query = SortUtils.getSortedMovie(sortBy)
+        return movieAppDao.getTVSeries(query)
+    }
 
     fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity> = movieAppDao.getFavoriteTVSeries()
 

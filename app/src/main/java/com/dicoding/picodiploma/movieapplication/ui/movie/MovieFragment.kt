@@ -16,8 +16,10 @@ import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentMovieBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
+import com.dicoding.picodiploma.movieapplication.utils.SortUtils
 import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
+import java.util.*
 
 class MovieFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -40,20 +42,20 @@ class MovieFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
-            showMovieList()
+//            showMovieList(SortUtils.NAME)
             setSpinner()
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?,
                                 position: Int, id: Long) {
-        when(parent.getItemAtPosition(position).toString()){
-            parent.resources.getString(R.string.name) -> { // Sort by name
-
+        when(parent.getItemAtPosition(position).toString().toLowerCase(Locale.getDefault())){
+            parent.resources.getString(R.string.name).toLowerCase(Locale.getDefault()) -> { // Sort by name
+                showMovieList(SortUtils.NAME)
             }
 
-            parent.resources.getString(R.string.rating) -> {  // Sort by rating
-
+            parent.resources.getString(R.string.rating).toLowerCase(Locale.getDefault()) -> {  // Sort by rating
+                showMovieList(SortUtils.RATING)
             }
         }
     }
@@ -80,11 +82,11 @@ class MovieFragment : Fragment(), AdapterView.OnItemSelectedListener {
     /**
      * Show movie list in fragment
      */
-    private fun showMovieList(){
+    private fun showMovieList(sortBy: String){
         val movieAdapter = MovieAdapter()
 
         // Observe movies
-        viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+        viewModel.getMovies(sortBy).observe(viewLifecycleOwner, { movies ->
             if (movies != null) {
                 when (movies.status) {
                     LOADING -> setLoading(true)

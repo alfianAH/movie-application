@@ -11,8 +11,8 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 import com.dicoding.picodiploma.movieapplication.valueobject.Resource
 
 interface MovieAppDataSource {
-    fun getMovies()                           : LiveData<Resource<PagedList<MovieEntity>>>
-    fun getTVSeries()                         : LiveData<Resource<PagedList<TVSeriesEntity>>>
+    fun getMovies(sortBy: String)             : LiveData<Resource<PagedList<MovieEntity>>>
+    fun getTVSeries(sortBy: String)           : LiveData<Resource<PagedList<TVSeriesEntity>>>
     fun getDetailMovie(movieId: Int)          : LiveData<Resource<MovieDetails>>
     fun getDetailTVSeries(tvSeriesId: Int)    : LiveData<Resource<TVSeriesDetails>>
     fun getMovieGenres(movieId: Int)          : LiveData<Resource<List<MovieGenreEntity>>>
