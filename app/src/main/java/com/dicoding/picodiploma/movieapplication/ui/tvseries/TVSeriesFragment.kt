@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.picodiploma.movieapplication.R
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
 import com.dicoding.picodiploma.movieapplication.databinding.FragmentTvSeriesBinding
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 import com.dicoding.picodiploma.movieapplication.valueobject.Status.*
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 
-class TVSeriesFragment : Fragment() {
+class TVSeriesFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var fragmentTVSeriesBinding: FragmentTvSeriesBinding
     private lateinit var viewModel: TVSeriesViewModel
@@ -37,7 +41,40 @@ class TVSeriesFragment : Fragment() {
             viewModel = ViewModelProvider(this, factory)[TVSeriesViewModel::class.java]
 
             showTVSeriesList()
+            setSpinner()
         }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?,
+                                position: Int, id: Long) {
+        when(parent.getItemAtPosition(position).toString()){
+            parent.resources.getString(R.string.name) -> { // Sort by name
+
+            }
+
+            parent.resources.getString(R.string.rating) -> {  // Sort by rating
+
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {}
+
+    /**
+     * Set spinner resources
+     */
+    private fun setSpinner(){
+        val spinner: Spinner = fragmentTVSeriesBinding.sort.sortDropdown
+        ArrayAdapter.createFromResource(
+                requireActivity(),
+                R.array.sort_array,
+                R.layout.support_simple_spinner_dropdown_item
+        ).also {adapter ->
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = this
     }
 
     /**

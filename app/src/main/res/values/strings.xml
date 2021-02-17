@@ -5,7 +5,7 @@
     <string name="title">Title</string>
     <string name="release_date"><b>Release Date</b>: %s</string>
     <string name="genre">Genre: </string>
-    <string name="score"><b>Score</b>: %.1f / 10</string>
+    <string name="score"><b>Rating</b>: %.1f / 10</string>
     <string name="summary">Summary: </string>
     <string name="movie">Movies</string>
     <string name="tv_series">TV Series</string>
@@ -13,4 +13,11 @@
     <string name="title_activity_home">MainActivity</string>
     <string name="message_undo">Cancel delete?</string>
     <string name="message_ok">OK</string>
+    <string name="sort">Sort</string>
+    <string name="name">Name</string>
+    <string name="rating">Rating</string>
+    <string-array name="sort_array">
+        <item>@string/name</item>
+        <item>@string/rating</item>
+    </string-array>
 </resources>
