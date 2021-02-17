@@ -42,7 +42,6 @@ class MovieFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
-//            showMovieList(SortUtils.NAME)
             setSpinner()
         }
     }

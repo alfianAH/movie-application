@@ -9,9 +9,11 @@ import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseri
 
 class FavoriteListViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    fun getMovies(): LiveData<PagedList<MovieEntity>> = movieAppRepository.getFavoriteMovies()
+    fun getMovies(sortBy: String): LiveData<PagedList<MovieEntity>> =
+            movieAppRepository.getFavoriteMovies(sortBy)
 
-    fun getTVSeries(): LiveData<PagedList<TVSeriesEntity>> = movieAppRepository.getFavoriteTVSeries()
+    fun getTVSeries(sortBy: String): LiveData<PagedList<TVSeriesEntity>> =
+            movieAppRepository.getFavoriteTVSeries(sortBy)
 
     fun setFavorite(movieEntity: MovieEntity){
         val newState = !movieEntity.isFavorite

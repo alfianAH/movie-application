@@ -237,24 +237,24 @@ class MovieAppRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
+    override fun getFavoriteMovies(sortBy: String): LiveData<PagedList<MovieEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
 
-        return LivePagedListBuilder(localDataSource.getFavoriteMovies(), config).build()
+        return LivePagedListBuilder(localDataSource.getFavoriteMovies(sortBy), config).build()
     }
 
-    override fun getFavoriteTVSeries(): LiveData<PagedList<TVSeriesEntity>> {
+    override fun getFavoriteTVSeries(sortBy: String): LiveData<PagedList<TVSeriesEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
 
-        return LivePagedListBuilder(localDataSource.getFavoriteTVSeries(), config).build()
+        return LivePagedListBuilder(localDataSource.getFavoriteTVSeries(sortBy), config).build()
     }
 
     override fun setFavorite(movie: MovieEntity, state: Boolean) =

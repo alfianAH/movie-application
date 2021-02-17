@@ -17,8 +17,8 @@ interface MovieAppDataSource {
     fun getDetailTVSeries(tvSeriesId: Int)    : LiveData<Resource<TVSeriesDetails>>
     fun getMovieGenres(movieId: Int)          : LiveData<Resource<List<MovieGenreEntity>>>
     fun getTVSeriesGenres(tvSeriesId: Int)    : LiveData<Resource<List<TVSeriesGenreEntity>>>
-    fun getFavoriteMovies()                   : LiveData<PagedList<MovieEntity>>
-    fun getFavoriteTVSeries()                 : LiveData<PagedList<TVSeriesEntity>>
+    fun getFavoriteMovies(sortBy: String)     : LiveData<PagedList<MovieEntity>>
+    fun getFavoriteTVSeries(sortBy: String)   : LiveData<PagedList<TVSeriesEntity>>
 
     fun setFavorite(movie: MovieEntity, state: Boolean)
     fun setFavorite(tvSeries: TVSeriesEntity, state: Boolean)

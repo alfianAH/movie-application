@@ -34,4 +34,32 @@ object SortUtils {
 
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
+
+    /**
+     * Get sorted favorite tv series by name and rating
+     */
+    fun getSortedFavMovie(filter: String): SimpleSQLiteQuery{
+        val simpleQuery = StringBuilder().append("SELECT * FROM movieEntities WHERE isFavorite=1 ")
+
+        when(filter){
+            NAME -> simpleQuery.append("ORDER BY title ASC")
+            RATING -> simpleQuery.append("ORDER BY voteAverage DESC")
+        }
+
+        return SimpleSQLiteQuery(simpleQuery.toString())
+    }
+
+    /**
+     * Get sorted favorite tv series by name and rating
+     */
+    fun getSortedFavTVSeries(filter: String): SimpleSQLiteQuery{
+        val simpleQuery = StringBuilder().append("SELECT * FROM tvSeriesEntities WHERE isFavorite=1 ")
+
+        when(filter){
+            NAME -> simpleQuery.append("ORDER BY title ASC")
+            RATING -> simpleQuery.append("ORDER BY voteAverage DESC")
+        }
+
+        return SimpleSQLiteQuery(simpleQuery.toString())
+    }
 }

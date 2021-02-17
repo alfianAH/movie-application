@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +20,12 @@ import com.dicoding.picodiploma.movieapplication.databinding.FragmentFavoriteLis
 import com.dicoding.picodiploma.movieapplication.ui.detail.DetailActivity
 import com.dicoding.picodiploma.movieapplication.ui.movie.MovieAdapter
 import com.dicoding.picodiploma.movieapplication.ui.tvseries.TVSeriesAdapter
+import com.dicoding.picodiploma.movieapplication.utils.SortUtils
 import com.dicoding.picodiploma.movieapplication.viewmodel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
-class FavoriteListFragment : Fragment() {
+class FavoriteListFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     companion object{
         private const val ARG_SECTION_NUMBER = "section_number"
@@ -57,20 +62,67 @@ class FavoriteListFragment : Fragment() {
         if(activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[FavoriteListViewModel::class.java]
+            setSpinner()
         }
     }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?,
+                                position: Int, id: Long) {
+        // Set list on resume
+        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
+            1 -> { // Show movie list
+                setList(parent, position, ::showMovieList)
+            }
+
+            2 -> { // Show tv series list
+                setList(parent, position, ::showTVSeriesList)
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {}
 
     override fun onResume() {
         super.onResume()
 
         // Set list on resume
-        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
-            1 -> { // Show movie list
-                showMovieList()
+//        when(arguments?.getInt(ARG_SECTION_NUMBER, 0)){
+//            1 -> { // Show movie list
+//                showMovieList(SortUtils.NAME)
+//            }
+//
+//            2 -> { // Show tv series list
+//                showTVSeriesList(SortUtils.NAME)
+//            }
+//        }
+    }
+
+    /**
+     * Set spinner resources
+     */
+    private fun setSpinner(){
+        val spinner: Spinner = fragmentFavoriteListBinding.sort.sortDropdown
+        ArrayAdapter.createFromResource(
+                requireActivity(),
+                R.array.sort_array,
+                R.layout.support_simple_spinner_dropdown_item
+        ).also {adapter ->
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = this
+    }
+
+    private fun setList(parent: AdapterView<*>, position: Int,
+                        list: (sortBy: String) -> Unit){
+        when(parent.getItemAtPosition(position).toString().toLowerCase(Locale.getDefault())){
+            parent.resources.getString(R.string.name).toLowerCase(Locale.getDefault()) -> { // Sort by name
+                list(SortUtils.NAME)
             }
 
-            2 -> { // Show tv series list
-                showTVSeriesList()
+            parent.resources.getString(R.string.rating).toLowerCase(Locale.getDefault()) -> {  // Sort by rating
+                list(SortUtils.RATING)
             }
         }
     }
@@ -115,11 +167,11 @@ class FavoriteListFragment : Fragment() {
     /**
      * Show favorite movie list in fragment
      */
-    private fun showMovieList(){
+    private fun showMovieList(sortBy: String){
         setLoading(true)
 
         // Observe movies
-        viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+        viewModel.getMovies(sortBy).observe(viewLifecycleOwner, { movies ->
             setLoading(false)
             movieAdapter = MovieAdapter()
             movieAdapter.submitList(movies)
@@ -146,10 +198,10 @@ class FavoriteListFragment : Fragment() {
     /**
      * Show favorite tvSeries list in fragment
      */
-    private fun showTVSeriesList(){
+    private fun showTVSeriesList(sortBy: String){
         setLoading(true)
 
-        viewModel.getTVSeries().observe(viewLifecycleOwner, {tvSeries ->
+        viewModel.getTVSeries(sortBy).observe(viewLifecycleOwner, {tvSeries ->
             setLoading(false)
             tvSeriesAdapter = TVSeriesAdapter()
             tvSeriesAdapter.submitList(tvSeries)

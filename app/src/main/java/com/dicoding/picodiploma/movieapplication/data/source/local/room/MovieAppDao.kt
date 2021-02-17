@@ -17,8 +17,8 @@ interface MovieAppDao{
     @RawQuery(observedEntities = [MovieEntity::class])
     fun getMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
-    @Query("SELECT * FROM movieEntities WHERE isFavorite = 1")
-    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
     @Transaction
     @Query("SELECT * FROM movieEntities WHERE movieId = :movieId")
@@ -40,8 +40,8 @@ interface MovieAppDao{
     @RawQuery(observedEntities = [TVSeriesEntity::class])
     fun getTVSeries(query: SupportSQLiteQuery): DataSource.Factory<Int, TVSeriesEntity>
 
-    @Query("SELECT * FROM tvSeriesEntities WHERE isFavorite = 1")
-    fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity>
+    @RawQuery(observedEntities = [TVSeriesEntity::class])
+    fun getFavoriteTVSeries(query: SupportSQLiteQuery): DataSource.Factory<Int, TVSeriesEntity>
 
     @Transaction
     @Query("SELECT * FROM tvSeriesEntities WHERE tvSeriesId = :tvSeriesId")

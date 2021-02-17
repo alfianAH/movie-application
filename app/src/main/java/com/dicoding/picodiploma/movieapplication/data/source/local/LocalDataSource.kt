@@ -24,7 +24,10 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
         return movieAppDao.getMovies(query)
     }
 
-    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = movieAppDao.getFavoriteMovies()
+    fun getFavoriteMovies(sortBy: String): DataSource.Factory<Int, MovieEntity> {
+        val query = SortUtils.getSortedFavMovie(sortBy)
+        return movieAppDao.getFavoriteMovies(query)
+    }
 
     fun getDetailMovieById(movieId: Int): LiveData<MovieDetails> =
         movieAppDao.getDetailMovieById(movieId)
@@ -45,11 +48,14 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
 
     // TV Series
     fun getTVSeries(sortBy: String): DataSource.Factory<Int, TVSeriesEntity> {
-        val query = SortUtils.getSortedMovie(sortBy)
+        val query = SortUtils.getSortedTVSeries(sortBy)
         return movieAppDao.getTVSeries(query)
     }
 
-    fun getFavoriteTVSeries(): DataSource.Factory<Int, TVSeriesEntity> = movieAppDao.getFavoriteTVSeries()
+    fun getFavoriteTVSeries(sortBy: String): DataSource.Factory<Int, TVSeriesEntity> {
+        val query = SortUtils.getSortedFavTVSeries(sortBy)
+        return movieAppDao.getFavoriteTVSeries(query)
+    }
 
     fun getDetailTVSeriesById(tvSeriesId: Int): LiveData<TVSeriesDetails> =
         movieAppDao.getDetailTVSeriesById(tvSeriesId)

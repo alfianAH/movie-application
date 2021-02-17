@@ -42,7 +42,6 @@ class TVSeriesFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[TVSeriesViewModel::class.java]
 
-//            showTVSeriesList(SortUtils.NAME)
             setSpinner()
         }
     }
