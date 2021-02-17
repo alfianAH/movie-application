@@ -4,7 +4,6 @@
 
     <string name="title">Title</string>
     <string name="release_date"><b>Release Date</b>: %s</string>
-    <string name="status"><b>Status</b>: %s</string>
     <string name="genre">Genre: </string>
     <string name="score"><b>Score</b>: %.1f / 10</string>
     <string name="summary">Summary: </string>

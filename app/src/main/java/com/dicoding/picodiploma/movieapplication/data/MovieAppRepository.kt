@@ -119,20 +119,20 @@ class MovieAppRepository private constructor(
 
     override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieDetails>> {
 
-        return object : NetworkBoundResource<MovieDetails, List<GenresItem>>(appExecutors){
+        return object : NetworkBoundResource<MovieDetails, DetailMovieResponse>(appExecutors){
             override fun loadFromDB(): LiveData<MovieDetails> =
                     localDataSource.getDetailMovieById(movieId)
 
             override fun shouldFetch(data: MovieDetails?): Boolean =
                     data?.movieEntity == null
 
-            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
-                    remoteDataSource.getMovieGenres(movieId)
+            override fun createCall(): LiveData<ApiResponse<DetailMovieResponse>> =
+                    remoteDataSource.getDetailMovie(movieId)
 
-            override fun saveCallResult(data: List<GenresItem>) {
+            override fun saveCallResult(data: DetailMovieResponse) {
                 val genreList = ArrayList<MovieGenreEntity>()
 
-                for(response in data){
+                for(response in data.genres){
                     val genre = MovieGenreEntity(
                             movieId,
                             response.id,
@@ -149,20 +149,20 @@ class MovieAppRepository private constructor(
 
     override fun getDetailTVSeries(tvSeriesId: Int): LiveData<Resource<TVSeriesDetails>> {
 
-        return object : NetworkBoundResource<TVSeriesDetails, List<GenresItem>>(appExecutors){
+        return object : NetworkBoundResource<TVSeriesDetails, DetailTVSeriesResponse>(appExecutors){
             override fun loadFromDB(): LiveData<TVSeriesDetails> =
                     localDataSource.getDetailTVSeriesById(tvSeriesId)
 
             override fun shouldFetch(data: TVSeriesDetails?): Boolean =
                     data?.tvSeriesEntity == null
 
-            override fun createCall(): LiveData<ApiResponse<List<GenresItem>>> =
-                    remoteDataSource.getTVSeriesGenres(tvSeriesId)
+            override fun createCall(): LiveData<ApiResponse<DetailTVSeriesResponse>> =
+                    remoteDataSource.getDetailTVSeries(tvSeriesId)
 
-            override fun saveCallResult(data: List<GenresItem>) {
+            override fun saveCallResult(data: DetailTVSeriesResponse) {
                 val genreList = ArrayList<TVSeriesGenreEntity>()
 
-                for(response in data){
+                for(response in data.genres){
                     val genre = TVSeriesGenreEntity(
                             tvSeriesId,
                             response.id,

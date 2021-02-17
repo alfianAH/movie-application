@@ -111,7 +111,6 @@ class DetailActivity : AppCompatActivity() {
 
                         // Set UI
                         detailContentBinding.textTitle.text = movieEntity?.title
-//                        detailContentBinding.textStatus.text = getString(R.string.status, movieEntity.status)
                         detailContentBinding.textScore.text = getString(R.string.score, movieEntity?.voteAverage)
                         detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
                                 ConvertDate.convertStringToDate(movieEntity?.releaseDate as String))
@@ -172,7 +171,6 @@ class DetailActivity : AppCompatActivity() {
 
                         // Set UI
                         detailContentBinding.textTitle.text = tvSeriesEntity?.title
-//                        detailContentBinding.textStatus.text = getString(R.string.status, movieEntity.status)
                         detailContentBinding.textScore.text = getString(R.string.score, tvSeriesEntity?.voteAverage)
                         detailContentBinding.textReleaseDate.text = getString(R.string.release_date,
                                 ConvertDate.convertStringToDate(tvSeriesEntity?.releaseDate as String))
