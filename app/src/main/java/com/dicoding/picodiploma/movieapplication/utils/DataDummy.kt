@@ -1,94 +1,227 @@
 package com.dicoding.picodiploma.movieapplication.utils
 
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesDetails
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesEntity
+import com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvseries.TVSeriesGenreEntity
 import com.dicoding.picodiploma.movieapplication.data.source.remote.response.*
 
 object DataDummy {
 
-    fun generateDummyMovies(): List<MovieResultsItem>{
-        val movies = ArrayList<MovieResultsItem>()
+    fun generateDummyMovies(): List<MovieEntity>{
+        val movies = ArrayList<MovieEntity>()
 
-        movies.add(0, MovieResultsItem(
-            "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
-            "Wonder Woman 1984",
-            arrayListOf(14, 28, 12),
-            "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
-            "2020-12-16",
-            7.1,
-            464052
-        ))
+        movies.add(MovieEntity(635302,
+                        "Demon Slayer: Mugen Train",
+                        "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
+                        "/yF45egpHwaYLn4jTyZAgk0Cmug9.jpg",
+                        "2020-10-16",
+                        8.0,
+                        false
+                )
+        )
 
-        movies.add(1, MovieResultsItem(
-            "Joe Gardner is a middle school teacher with a love for jazz music. After a successful gig at the Half Note Club, he suddenly gets into an accident that separates his soul from his body and is transported to the You Seminar, a center in which souls develop and gain passions before being transported to a newborn child. Joe must enlist help from the other souls-in-training, like 22, a soul who has spent eons in the You Seminar, in order to get back to Earth.",
-            "Soul",
-            arrayListOf(16, 38, 18),
-            "/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg",
-            "2020-12-25",
-            8.3,
-            508442
-        ))
+        movies.add(MovieEntity(674,
+                        "Harry Potter and the Goblet of Fire",
+                        "Harry starts his fourth year at Hogwarts, competes in the treacherous Triwizard Tournament and faces the evil Lord Voldemort. Ron and Hermione help Harry manage the pressure – but Voldemort lurks, awaiting his chance to destroy Harry and all that he stands for.",
+                        "/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+                        "2005-11-16",
+                        7.8,
+                        false
+                )
+        )
 
         return movies
     }
 
-    fun generateDummyTVSeries(): List<TVSeriesResultsItem>{
-        val tvSeries = ArrayList<TVSeriesResultsItem>()
+    fun generateDummyTVSeries(): List<TVSeriesEntity>{
+        val tvSeries = ArrayList<TVSeriesEntity>()
 
-        tvSeries.add(0, TVSeriesResultsItem(
-            "2004-05-10",
-            "I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists.",
-            arrayListOf(16, 35),
-            "/qG59J1Q7rpBc1dvku4azbzcqo8h.jpg",
-            9.4,
-            "I Am Not an Animal",
-            100
+        tvSeries.add(TVSeriesEntity(73055,
+                "Attack on Titan: No Regrets",
+                "Many years before becoming the famed captain of the Survey Corps, a young Levi struggles to survive in the capital's garbage dump, the Underground. As the boss of his own criminal operation, Levi attempts to get by with meager earnings while aided by fellow criminals, Isabel Magnolia and Farlan Church. With little hope for the future, Levi accepts a deal from the anti-expedition faction leader Nicholas Lobov, who promises the trio citizenship aboveground if they are able to successfully assassinate Erwin Smith, a squad leader of the Survey Corps.\n\nAs Levi and Erwin cross paths, Erwin acknowledges Levi's agility and skill and gives him the option to either become part of the expedition team, or be turned over to the Military Police, to atone for his crimes. Now closer to the man they are tasked to kill, the group plans to complete their mission and save themselves from a grim demise in the dim recesses of their past home. However, they are about to learn that the surface world is not as liberating as they had thought and that sometimes, freedom can come at a heavy price.\n\nBased on the popular spin-off manga of the same name, Attack on Titan: No Regrets illustrates the encounter between two of Attack on Titan's pivotal characters, as well as the events of the 23rd expedition beyond the walls.",
+                "/xGdz67d5WHIU7kIqVHO2TxIpmhZ.jpg",
+                "2014-12-09",
+                8.9,
+                false
         ))
 
-        tvSeries.add(1, TVSeriesResultsItem(
-            "2019-07-11",
-            "Tightly clutching his Gibson guitar, Mafuyu Satou steps out of his dark apartment to begin another day of his high school life. While taking a nap in a quiet spot on the gymnasium staircase, he has a chance encounter with fellow student Ritsuka Uenoyama, who berates him for letting his guitar's strings rust and break. Noticing Uenoyama's knowledge of the instrument, Satou pleads for him to fix it and to teach him how to play. Uenoyama eventually agrees and invites him to sit in on a jam session with his two band mates: bassist Haruki Nakayama and drummer Akihiko Kaji.\\n\\nSatou's voice is strikingly beautiful, filling Uenoyama with the determination to make Satou the lead singer of the band. Though reticent at first, Satou takes the offer after an emotional meeting with an old friend. With the support of his new friends, Satou must not only learn how to play guitar, but also come to terms with the mysterious circumstances that led him to be its owner.",
-            arrayListOf(16, 18),
-            "/pdDCcAq8RNSZNk81PXYoHNUPHjn.jpg",
-            9.2,
-            "Given",
-            88040
+        tvSeries.add(TVSeriesEntity(65930,
+                "My Hero Academia",
+                "In a world where eighty percent of the population has some kind of super-powered Quirk, Izuku was unlucky enough to be born completely normal. But that won’t stop him from enrolling in a prestigious hero academy. Now, he’ll get his first taste of brutal rivalry from other schools as he braves the cutthroat, no-holds-barred provisional license exam.",
+                "/he1aoyFEPYAMsjGOVGfObbEIzid.jpg",
+                "2016-04-03",
+                8.9,
+                false
         ))
 
         return tvSeries
     }
 
-    fun generateDummyDetailMovie(): DetailMovieResponse{
-        return DetailMovieResponse(
-                "Wonder Woman 1984",
-                arrayListOf(
-                        GenresItem("Fantasy", 14),
-                        GenresItem("Action", 28),
-                        GenresItem("Adventure", 12)
-                ),
-                464052,
-                "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
-                "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
-                "2020-12-16",
-                7.1,
-                "Released"
-        )
+    fun generateRemoteDummyMovies(): List<MovieResultsItem>{
+        val movieResponse = ArrayList<MovieResultsItem>()
+
+        movieResponse.add(MovieResultsItem(
+                "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
+                "Demon Slayer: Mugen Train",
+                "/yF45egpHwaYLn4jTyZAgk0Cmug9.jpg",
+                "2020-10-16",
+                8.0,
+                635302
+        ))
+
+        movieResponse.add(MovieResultsItem("Harry starts his fourth year at Hogwarts, competes in the treacherous Triwizard Tournament and faces the evil Lord Voldemort. Ron and Hermione help Harry manage the pressure – but Voldemort lurks, awaiting his chance to destroy Harry and all that he stands for.",
+                "Harry Potter and the Goblet of Fire",
+                "/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+                "2005-11-16",
+                7.8,
+                674
+
+        ))
+
+        return movieResponse
     }
 
-    fun generateDummyDetailTVSeries(): DetailTVSeriesResponse{
-        return DetailTVSeriesResponse(
-                arrayListOf(
-                        GenresItem("Animation", 16),
-                        GenresItem("Mystery", 9648),
-                        GenresItem("Sci-Fi & Fantasy", 10765),
-                        GenresItem("Action & Adventure", 10759),
-                        GenresItem("Drama", 18)
-                ),
-                83097,
-                "2019-01-11",
-                "Surrounded by a forest and a gated entrance, the Grace Field House is inhabited by orphans happily living together as one big family, looked after by their \"Mama,\" Isabella. Although they are required to take tests daily, the children are free to spend their time as they see fit, usually playing outside, as long as they do not venture too far from the orphanage — a rule they are expected to follow no matter what. However, all good times must come to an end, as every few months, a child is adopted and sent to live with their new family... never to be heard from again.\n\nHowever, the three oldest siblings have their suspicions about what is actually happening at the orphanage, and they are about to discover the cruel fate that awaits the children living at Grace Field, including the twisted nature of their beloved Mama.",
-                "/yxdeII5tI8qqiERcMxjW9DfB6Gz.jpg",
-                9.2,
-                "The Promised Neverland",
-                "Returning Series"
-        )
+    fun generateRemoteDummyTVSeries(): List<TVSeriesResultsItem>{
+        val tvSeriesResponse = ArrayList<TVSeriesResultsItem>()
+
+        tvSeriesResponse.add(TVSeriesResultsItem("2014-12-09",
+                "Many years before becoming the famed captain of the Survey Corps, a young Levi struggles to survive in the capital's garbage dump, the Underground. As the boss of his own criminal operation, Levi attempts to get by with meager earnings while aided by fellow criminals, Isabel Magnolia and Farlan Church. With little hope for the future, Levi accepts a deal from the anti-expedition faction leader Nicholas Lobov, who promises the trio citizenship aboveground if they are able to successfully assassinate Erwin Smith, a squad leader of the Survey Corps.\n\nAs Levi and Erwin cross paths, Erwin acknowledges Levi's agility and skill and gives him the option to either become part of the expedition team, or be turned over to the Military Police, to atone for his crimes. Now closer to the man they are tasked to kill, the group plans to complete their mission and save themselves from a grim demise in the dim recesses of their past home. However, they are about to learn that the surface world is not as liberating as they had thought and that sometimes, freedom can come at a heavy price.\n\nBased on the popular spin-off manga of the same name, Attack on Titan: No Regrets illustrates the encounter between two of Attack on Titan's pivotal characters, as well as the events of the 23rd expedition beyond the walls.",
+                "/xGdz67d5WHIU7kIqVHO2TxIpmhZ.jpg",
+                8.9,
+                "Attack on Titan: No Regrets",
+                73055
+
+        ))
+
+        tvSeriesResponse.add(TVSeriesResultsItem("2016-04-03",
+                "In a world where eighty percent of the population has some kind of super-powered Quirk, Izuku was unlucky enough to be born completely normal. But that won’t stop him from enrolling in a prestigious hero academy. Now, he’ll get his first taste of brutal rivalry from other schools as he braves the cutthroat, no-holds-barred provisional license exam.",
+                "/he1aoyFEPYAMsjGOVGfObbEIzid.jpg",
+                8.9,
+                "My Hero Academia",
+                65930
+        ))
+
+        return tvSeriesResponse
+    }
+
+    /**
+     * Genre Movie[0]: Demon Slayer
+     */
+    fun generateDummyMovieGenres(movieId: Int): List<MovieGenreEntity>{
+        val genres = ArrayList<MovieGenreEntity>()
+
+        genres.add(MovieGenreEntity(movieId,
+                16,
+                "Animation"
+        ))
+
+        genres.add(MovieGenreEntity(movieId,
+                28,
+                "Action"
+        ))
+
+        genres.add(MovieGenreEntity(movieId,
+                12,
+                "Adventure"
+        ))
+
+        genres.add(MovieGenreEntity(movieId,
+                14,
+                "Fantasy"
+        ))
+
+        genres.add(MovieGenreEntity(movieId,
+                18,
+                "Drama"
+        ))
+
+        return genres
+    }
+
+    /**
+     * Genre TV Series[0]: AOT
+     */
+    fun generateDummyTVSeriesGenres(tvSeriesId: Int): List<TVSeriesGenreEntity>{
+        val genres = ArrayList<TVSeriesGenreEntity>()
+
+        genres.add(TVSeriesGenreEntity(tvSeriesId,
+                10765,
+                "Sci-Fi & Fantasy"
+        ))
+
+        genres.add(TVSeriesGenreEntity(tvSeriesId,
+                10759,
+                "Action & Adventure"
+        ))
+
+        genres.add(TVSeriesGenreEntity(tvSeriesId,
+                16,
+                "Animation"
+        ))
+
+        return genres
+    }
+
+    /**
+     * Genre Movie[0]: Demon Slayer
+     */
+    fun generateRemoteDummyMovieGenres(movieId: Int): List<GenresItem>{
+        val genres = ArrayList<GenresItem>()
+
+        genres.add(GenresItem("Animation",
+                16
+        ))
+
+        genres.add(GenresItem("Action",
+                29
+        ))
+
+        genres.add(GenresItem("Adventure",
+                12
+        ))
+
+        genres.add(GenresItem("Fantasy",
+                14
+        ))
+
+        genres.add(GenresItem("Drama",
+                18
+        ))
+
+        return genres
+    }
+
+    /**
+     * Genre TV Series[0]: AOT
+     */
+    fun generateRemoteDummyTVSeriesGenres(tvSeriesId: Int): List<GenresItem>{
+        val genres = ArrayList<GenresItem>()
+
+        genres.add(GenresItem("Sci-Fi & Fantasy",
+                10765
+        ))
+
+        genres.add(GenresItem("Action & Adventure",
+                10759
+        ))
+
+        genres.add(GenresItem("Animation",
+                16
+        ))
+
+        return genres
+    }
+
+    fun generateDummyDetailMovie(movie: MovieEntity, isFavorite: Boolean): MovieDetails{
+        movie.isFavorite = isFavorite
+        return MovieDetails(movie, generateDummyMovieGenres(movie.id))
+    }
+
+    fun generateDummyDetailTVSeries(tvSeries: TVSeriesEntity, isFavorite: Boolean): TVSeriesDetails{
+        tvSeries.isFavorite = isFavorite
+        return TVSeriesDetails(tvSeries, generateDummyTVSeriesGenres(tvSeries.id))
     }
 }
