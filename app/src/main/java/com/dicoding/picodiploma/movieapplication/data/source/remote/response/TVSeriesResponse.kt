@@ -15,9 +15,6 @@ data class TVSeriesResultsItem(
 	@field:SerializedName("overview")
 	val overview: String,
 
-	@field:SerializedName("genre_ids")
-	val genreIds: List<Int>,
-
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 

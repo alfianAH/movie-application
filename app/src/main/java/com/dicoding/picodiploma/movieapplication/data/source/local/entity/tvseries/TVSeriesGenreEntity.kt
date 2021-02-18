@@ -19,7 +19,7 @@ import androidx.room.Index
 data class TVSeriesGenreEntity(
     @NonNull
     @ColumnInfo(name = "tvSeriesId")
-    val movieId: Int,
+    val tvSeriesId: Int,
 
     @NonNull
     @ColumnInfo(name = "genreId")
