@@ -74,12 +74,17 @@ class MovieAppRepositoryTest {
 
         `when`(localDataSource.getDetailMovieById(movieId)).thenReturn(dummyMovie)
 
-        val movieEntity = LiveDataTestUtil.getValue(movieAppRepository.getDetailMovie(movieId))
+        val movieEntity = LiveDataTestUtil.getValue(movieAppRepository.getDetailMovie(movieId)).data
 
         verify(localDataSource).getDetailMovieById(movieId)
-        assertNotNull(movieEntity.data)
-        assertNotNull(movieEntity.data?.movieEntity?.title)
-        assertEquals(movieResponses[0].title, movieEntity.data?.movieEntity?.title)
+        assertNotNull(movieEntity)
+        assertNotNull(movieEntity?.movieEntity?.title)
+        assertEquals(movieResponses[0].title, movieEntity?.movieEntity?.title)
+        assertEquals(movieResponses[0].overview, movieEntity?.movieEntity?.overview)
+        assertEquals(movieResponses[0].releaseDate, movieEntity?.movieEntity?.releaseDate)
+        assertEquals(movieResponses[0].id, movieEntity?.movieEntity?.id)
+        assertEquals(movieResponses[0].posterPath, movieEntity?.movieEntity?.posterPath)
+        assertEquals(movieResponses[0].voteAverage, movieEntity?.movieEntity?.voteAverage)
     }
 
     @Test
@@ -89,12 +94,17 @@ class MovieAppRepositoryTest {
 
         `when`(localDataSource.getDetailTVSeriesById(tvSeriesId)).thenReturn(dummyTVSeries)
 
-        val tvSeriesEntity = LiveDataTestUtil.getValue(movieAppRepository.getDetailTVSeries(tvSeriesId))
+        val tvSeriesEntity = LiveDataTestUtil.getValue(movieAppRepository.getDetailTVSeries(tvSeriesId)).data
 
         verify(localDataSource).getDetailTVSeriesById(tvSeriesId)
-        assertNotNull(tvSeriesEntity.data)
-        assertNotNull(tvSeriesEntity.data?.tvSeriesEntity?.title)
-        assertEquals(tvSeriesResponses[0].name, tvSeriesEntity.data?.tvSeriesEntity?.title)
+        assertNotNull(tvSeriesEntity)
+        assertNotNull(tvSeriesEntity?.tvSeriesEntity?.title)
+        assertEquals(tvSeriesResponses[0].name, tvSeriesEntity?.tvSeriesEntity?.title)
+        assertEquals(tvSeriesResponses[0].overview, tvSeriesEntity?.tvSeriesEntity?.overview)
+        assertEquals(tvSeriesResponses[0].firstAirDate, tvSeriesEntity?.tvSeriesEntity?.releaseDate)
+        assertEquals(tvSeriesResponses[0].id, tvSeriesEntity?.tvSeriesEntity?.id)
+        assertEquals(tvSeriesResponses[0].posterPath, tvSeriesEntity?.tvSeriesEntity?.posterPath)
+        assertEquals(tvSeriesResponses[0].voteAverage, tvSeriesEntity?.tvSeriesEntity?.voteAverage)
     }
 
     @Test
@@ -104,11 +114,11 @@ class MovieAppRepositoryTest {
 
         `when`(localDataSource.getMovieGenresById(movieId)).thenReturn(dummyGenres)
 
-        val genreEntities = LiveDataTestUtil.getValue(movieAppRepository.getMovieGenres(movieId))
+        val genreEntities = LiveDataTestUtil.getValue(movieAppRepository.getMovieGenres(movieId)).data
 
         verify(localDataSource).getMovieGenresById(movieId)
-        assertNotNull(genreEntities.data)
-        assertEquals(movieGenresResponse.size, genreEntities.data?.size)
+        assertNotNull(genreEntities)
+        assertEquals(movieGenresResponse.size, genreEntities?.size)
     }
 
     @Test
@@ -118,11 +128,11 @@ class MovieAppRepositoryTest {
 
         `when`(localDataSource.getTVSeriesGenresById(tvSeriesId)).thenReturn(dummyGenres)
 
-        val genreEntities = LiveDataTestUtil.getValue(movieAppRepository.getTVSeriesGenres(tvSeriesId))
+        val genreEntities = LiveDataTestUtil.getValue(movieAppRepository.getTVSeriesGenres(tvSeriesId)).data
 
         verify(localDataSource).getTVSeriesGenresById(tvSeriesId)
-        assertNotNull(genreEntities.data)
-        assertEquals(tvSeriesGenresResponse.size, genreEntities.data?.size)
+        assertNotNull(genreEntities)
+        assertEquals(tvSeriesGenresResponse.size, genreEntities?.size)
     }
 
     @Test
