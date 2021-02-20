@@ -69,10 +69,6 @@ class HomeActivityTest {
         onView(withId(R.id.text_title)).check(matches(withText(dummyDetailMovie.title)))
 
         // Check matches in status
-        val status = "Status: ${dummyDetailMovie.status}"
-        onView(withId(R.id.text_status)).check(matches(withText(status)))
-
-        // Check matches in status
         val score = "Score: ${dummyDetailMovie.voteAverage} / 10"
         onView(withId(R.id.text_score)).check(matches(withText(score)))
 
