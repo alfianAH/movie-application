@@ -34,8 +34,6 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
 
     fun insertMovies(movies: List<MovieEntity>) = movieAppDao.insertMovies(movies)
 
-    fun updateMovie(movie: MovieEntity) = movieAppDao.updateMovie(movie)
-
     fun setMovieFavorite(movie: MovieEntity, newState: Boolean){
         movie.isFavorite = newState
         movieAppDao.updateMovie(movie)
@@ -62,8 +60,6 @@ class LocalDataSource(private val movieAppDao: MovieAppDao) {
 
 
     fun insertTVSeries(tvSeries: List<TVSeriesEntity>) = movieAppDao.insertTVSeries(tvSeries)
-
-    fun updateTVSeries(tvSeries: TVSeriesEntity) = movieAppDao.updateTVSeries(tvSeries)
 
     fun setTVSeriesFavorite(tvSeries: TVSeriesEntity, newState: Boolean){
         tvSeries.isFavorite = newState

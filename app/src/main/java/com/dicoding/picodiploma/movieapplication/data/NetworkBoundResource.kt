@@ -30,7 +30,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val executo
         }
     }
 
-    protected fun onFetchFailed(){}
+    private fun onFetchFailed(){}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 

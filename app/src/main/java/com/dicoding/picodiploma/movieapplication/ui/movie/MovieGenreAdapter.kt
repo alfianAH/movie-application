@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.picodiploma.movieapplication.data.source.local.entity.movie.MovieGenreEntity
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
 import com.dicoding.picodiploma.movieapplication.databinding.ItemsGenreBinding
 
 class MovieGenreAdapter: RecyclerView.Adapter<MovieGenreAdapter.GenreViewHolder>() {

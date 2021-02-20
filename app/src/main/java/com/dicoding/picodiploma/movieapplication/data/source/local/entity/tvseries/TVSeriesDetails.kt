@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.movieapplication.data.source.local.entity.tvser
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.dicoding.picodiploma.movieapplication.data.source.remote.response.GenresItem
 
 data class TVSeriesDetails (
     @Embedded
