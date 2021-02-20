@@ -32,10 +32,10 @@ class MovieAppRepositorySpekUnitTest : Spek({
 
     val movieResponses = DataDummy.generateRemoteDummyMovies()
     val movieId = movieResponses[0].id
-    val movieGenresResponse = DataDummy.generateRemoteDummyMovieGenres(movieId)
+    val movieGenresResponse = DataDummy.generateRemoteDummyMovieGenres()
     val tvSeriesResponses = DataDummy.generateRemoteDummyTVSeries()
     val tvSeriesId = tvSeriesResponses[0].id
-    val tvSeriesGenresResponse = DataDummy.generateRemoteDummyTVSeriesGenres(movieId)
+    val tvSeriesGenresResponse = DataDummy.generateRemoteDummyTVSeriesGenres()
 
     group("Movie App Repository Test"){
         beforeEachTest {

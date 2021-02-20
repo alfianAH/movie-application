@@ -156,29 +156,21 @@ object DataDummy {
     }
 
     /**
-     * Genre Movie[0]: Demon Slayer
+     * Genre Movie[0]: Clouds
      */
-    fun generateRemoteDummyMovieGenres(movieId: Int): List<GenresItem>{
+    fun generateRemoteDummyMovieGenres(): List<GenresItem>{
         val genres = ArrayList<GenresItem>()
 
-        genres.add(GenresItem("Animation",
-                16
-        ))
-
-        genres.add(GenresItem("Action",
-                29
-        ))
-
-        genres.add(GenresItem("Adventure",
-                12
-        ))
-
-        genres.add(GenresItem("Fantasy",
-                14
+        genres.add(GenresItem("Music",
+            10402
         ))
 
         genres.add(GenresItem("Drama",
-                18
+            18
+        ))
+
+        genres.add(GenresItem("Romance",
+            10749
         ))
 
         return genres
@@ -187,7 +179,7 @@ object DataDummy {
     /**
      * Genre TV Series[0]: AOT
      */
-    fun generateRemoteDummyTVSeriesGenres(tvSeriesId: Int): List<GenresItem>{
+    fun generateRemoteDummyTVSeriesGenres(): List<GenresItem>{
         val genres = ArrayList<GenresItem>()
 
         genres.add(GenresItem("Sci-Fi & Fantasy",
