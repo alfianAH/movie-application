@@ -13,14 +13,14 @@ object DataDummy {
     fun generateDummyMovies(): List<MovieEntity>{
         val movies = ArrayList<MovieEntity>()
 
-        movies.add(MovieEntity(635302,
-                        "Demon Slayer: Mugen Train",
-                        "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
-                        "/yF45egpHwaYLn4jTyZAgk0Cmug9.jpg",
-                        "2020-10-16",
-                        8.0,
+        movies.add(MovieEntity(630566,
+                        "Clouds",
+                        "Young musician Zach Sobiech discovers his cancer has spread, leaving him just a few months to live. With limited time, he follows his dream and makes an album, unaware that it will soon be a viral music phenomenon.",
+                        "/d0OdD1I8qAfETvE9Rp9Voq7R8LR.jpg",
+                        "2020-10-09",
+                        8.5,
                         false
-                )
+            )
         )
 
         movies.add(MovieEntity(674,
@@ -64,12 +64,12 @@ object DataDummy {
         val movieResponse = ArrayList<MovieResultsItem>()
 
         movieResponse.add(MovieResultsItem(
-                "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
-                "Demon Slayer: Mugen Train",
-                "/yF45egpHwaYLn4jTyZAgk0Cmug9.jpg",
-                "2020-10-16",
-                8.0,
-                635302
+            "Young musician Zach Sobiech discovers his cancer has spread, leaving him just a few months to live. With limited time, he follows his dream and makes an album, unaware that it will soon be a viral music phenomenon.",
+            "Clouds",
+            "/d0OdD1I8qAfETvE9Rp9Voq7R8LR.jpg",
+            "2020-10-09",
+            8.5,
+            630566
         ))
 
         movieResponse.add(MovieResultsItem("Harry starts his fourth year at Hogwarts, competes in the treacherous Triwizard Tournament and faces the evil Lord Voldemort. Ron and Hermione help Harry manage the pressure – but Voldemort lurks, awaiting his chance to destroy Harry and all that he stands for.",
@@ -108,34 +108,24 @@ object DataDummy {
     }
 
     /**
-     * Genre Movie[0]: Demon Slayer
+     * Genre Movie[0]: Clouds
      */
     fun generateDummyMovieGenres(movieId: Int): List<MovieGenreEntity>{
         val genres = ArrayList<MovieGenreEntity>()
 
         genres.add(MovieGenreEntity(movieId,
-                16,
-                "Animation"
-        ))
-
-        genres.add(MovieGenreEntity(movieId,
-                28,
-                "Action"
-        ))
-
-        genres.add(MovieGenreEntity(movieId,
-                12,
-                "Adventure"
-        ))
-
-        genres.add(MovieGenreEntity(movieId,
-                14,
-                "Fantasy"
+                10402,
+                "Music"
         ))
 
         genres.add(MovieGenreEntity(movieId,
                 18,
                 "Drama"
+        ))
+
+        genres.add(MovieGenreEntity(movieId,
+                10749,
+                "Romance"
         ))
 
         return genres

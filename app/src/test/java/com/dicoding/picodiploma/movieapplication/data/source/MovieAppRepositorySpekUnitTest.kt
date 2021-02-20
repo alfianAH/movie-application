@@ -101,7 +101,6 @@ class MovieAppRepositorySpekUnitTest : Spek({
             assertEquals(movieResponses[0].voteAverage, movieEntity?.movieEntity?.voteAverage)
         }
 
-
         test("Get Detail TV Series"){
             val dummyTVSeries = MutableLiveData<TVSeriesDetails>()
             dummyTVSeries.value = DataDummy.generateDummyDetailTVSeries(DataDummy.generateDummyTVSeries()[0], false)
